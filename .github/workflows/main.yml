@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -23,34 +23,17 @@ jobs:
     - name: Build
       run: npm run build --production
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: Display current directory contents
+      run: ls -al
+
+    - name: Display dist directory contents
+      run: ls -al dist
+
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        ref: gh-pages
-
-    - name: Copy built files to gh-pages branch
-      run: |
-        mkdir -p dist
-        cp -r ${{ github.workspace }}/dist/* dist/
-      shell: bash
-
-    - name: Commit changes
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add dist
-        git commit -m "Deploy site"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        publish_branch: gh-pages
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: gh-pages
-        force: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: true
