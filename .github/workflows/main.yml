@@ -27,13 +27,13 @@ jobs:
       run: ls -al
 
     - name: Display dist directory contents
-      run: ls -al dist
+      run: ls -al dist/site-web
 
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: ./dist/site-web
         publish_branch: gh-pages
       env:
         CI: true
