@@ -35,6 +35,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist/site-web
         publish_branch: gh-pages
-        force: true
       env:
         CI: true
