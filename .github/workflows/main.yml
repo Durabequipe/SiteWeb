@@ -28,6 +28,9 @@ jobs:
 
     - name: Display dist directory contents
       run: ls -al dist/site-web
+      
+    - name: debug
+      run: echo ${{ secrets.GITHUB_TOKEN }}
 
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
