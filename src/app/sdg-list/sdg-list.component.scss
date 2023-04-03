@@ -1,0 +1,13 @@
+.cards {
+  display: flex;
+  overflow: scroll;
+  gap: 2rem;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  height: -webkit-fill-available;
+  padding: 2rem;
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}

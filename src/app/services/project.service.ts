@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Project } from '@shammas44/interactive-video-player';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -7,15 +8,11 @@ import { HttpService } from './http.service';
 export class ProjectService {
   constructor(private http: HttpService) {}
 
-  async getProjects() {
-    return this.http.get('projects');
+  async getProjectsIds(): Promise<string[]> {
+    return this.http.get('projectsIds') as Promise<string[]>;
   }
 
-  async getProject(id: string) {
-    return this.http.get(`projects/${id}`);
-  }
-
-  async getPlayer(id: string) {
-    return this.http.get(`player/${id}`);
+  async getPlayer(id: string): Promise<Project> {
+    return this.http.get(`player/${id}`) as Promise<Project>;
   }
 }

@@ -1,0 +1,14 @@
+<a routerLink="/webdoc" routerLinkActive="active" class="card">
+  <video (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" [src]="video" playsinline loop>
+    <source type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="header">
+    <h1>Blueberry Cheesecake</h1>
+  </div>
+
+  <div class="footer">
+    <h1><span>{{sdgNumberPlusOne}}</span></h1>
+  </div>
+</a>
