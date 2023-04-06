@@ -4,8 +4,6 @@ export type Project = P & {
   thumbnailImage: string;
   coverImage: string;
   name: string;
+  description: string;
 };
 
-export type SdgProject = Project & {
-  sdgNo: number;
-}

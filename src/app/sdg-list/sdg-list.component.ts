@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { ProjectService } from '../services/project.service';
-import { Project, SdgProject } from '../models/projects';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from '../services/project.service';
+import {Project} from '../models/projects';
 
 @Component({
   selector: 'app-sdg-list',
@@ -9,13 +9,12 @@ import { Project, SdgProject } from '../models/projects';
 })
 export class SdgListComponent implements OnInit {
   public backgroundImage = '';
-  public currentProject: SdgProject | null = null;
+  public currentProject: Project | null = null;
 
   onMouseMove(e: any) {
     const speed = 30;
     const move = (element: HTMLElement, value: number) => {
-      const moveValue = element.scrollLeft + value;
-      element.scrollLeft = moveValue;
+      element.scrollLeft = element.scrollLeft + value;
     };
 
     if (this.cardsWrapper) {
@@ -31,29 +30,23 @@ export class SdgListComponent implements OnInit {
   public lastX = 0;
   private cardsWrapper: HTMLElement | null = null;
 
-  constructor(private api: ProjectService) {}
+  constructor(private api: ProjectService) {
+  }
 
   async fetchProject() {
     const projects = await this.api.getPlayers();
     if (projects) {
-      for (const project of projects) {
-        for (let i = 0; i < 5; i++) {
-          this.projects.push(project);
-        }
-        console.log({ project });
-      }
+      this.projects = projects;
       this.setDefaultProject(projects[0]);
     }
   }
 
   setDefaultProject(project: Project) {
-    const newProject: SdgProject = project as SdgProject;
-    newProject.sdgNo = 0;
-    this.currentProject = newProject;
-    this.setImage(newProject.coverImage);
+    this.currentProject = project;
+    this.setImage(project.coverImage);
   }
 
-  onCardIsHover(project: SdgProject | null) {
+  onCardIsHover(project: Project | null) {
     if (project) {
       this.setImage(project.coverImage);
       this.currentProject = project;
@@ -62,11 +55,6 @@ export class SdgListComponent implements OnInit {
 
   setImage(image: string) {
     this.backgroundImage = `background-image:url('${image}')`;
-  }
-
-  formatSdgNumber() {
-    const no = this.currentProject?.sdgNo || 1;
-    return no < 10 ? `0${String(no)}` : `${String(no)}`;
   }
 
   ngOnInit(): void {

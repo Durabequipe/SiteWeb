@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Project, SdgProject } from '../models/projects';
+import { Project } from '../models/projects';
 
 @Component({
   selector: 'app-sdg-card',
@@ -7,23 +7,20 @@ import { Project, SdgProject } from '../models/projects';
   styleUrls: ['./sdg-card.component.scss'],
 })
 export class SdgCardComponent implements OnInit {
-  @Output() cardIsHover = new EventEmitter<SdgProject>();
+  @Output() cardIsHover = new EventEmitter<Project>();
   @Input() project: Project | null = null;
   @Input() sdgNumber: number | undefined = undefined;
-  public sdgNumberPlusOne = -1;
   public video: string | undefined = undefined;
 
   onMouseEnter(e: any) {
-    const sdgProject = this.project as SdgProject;
+    const sdgProject = this.project as Project;
     if (sdgProject) {
-      sdgProject.sdgNo = this.sdgNumberPlusOne;
       this.cardIsHover.emit(sdgProject);
     }
   }
 
   ngOnInit() {
     this.video = this.project?.videos[0].paths[0];
-    this.sdgNumberPlusOne = (this.sdgNumber || 0) + 1;
   }
 
   setImage() {
