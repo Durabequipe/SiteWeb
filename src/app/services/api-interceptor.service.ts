@@ -21,6 +21,7 @@ export class APIInterceptorService implements HttpInterceptor {
         Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
         Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'x-api-key': environment.apiToken,
       },
     });
 
