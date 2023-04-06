@@ -8,6 +8,7 @@ import { HttpService } from './services/http.service';
 import { SdgListComponent } from './sdg-list/sdg-list.component';
 import { SdgCardComponent } from './sdg-card/sdg-card.component';
 import { PlayerComponent } from './player/player.component';
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PlayerComponent } from './player/player.component';
     SdgListComponent,
     SdgCardComponent,
     PlayerComponent,
+    IntroComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [

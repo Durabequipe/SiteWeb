@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ProjectService } from '../services/project.service';
-import { Project } from '@shammas44/interactive-video-player';
+import { Project, SdgProject } from '../models/projects';
 
 @Component({
   selector: 'app-sdg-list',
@@ -8,7 +8,9 @@ import { Project } from '@shammas44/interactive-video-player';
   styleUrls: ['./sdg-list.component.scss'],
 })
 export class SdgListComponent implements OnInit {
-  @HostListener('document:mousemove', ['$event'])
+  public backgroundImage = '';
+  public currentProject: SdgProject | null = null;
+
   onMouseMove(e: any) {
     const speed = 30;
     const move = (element: HTMLElement, value: number) => {
@@ -18,7 +20,7 @@ export class SdgListComponent implements OnInit {
 
     if (this.cardsWrapper) {
       if (e.movementX > 0) {
-        move(this.cardsWrapper, speed );
+        move(this.cardsWrapper, speed);
       } else if (e.movementX < 0) {
         move(this.cardsWrapper, speed * -1);
       }
@@ -32,25 +34,49 @@ export class SdgListComponent implements OnInit {
   constructor(private api: ProjectService) {}
 
   async fetchProject() {
-    const projectsIds: string[] | null = await this.api.getProjectsIds();
-    if (projectsIds) {
-      for (const id of projectsIds) {
-        try {
-          const project = await this.api.getPlayer(id);
-          for (let i = 0; i < 5; i++) {
-            this.projects.push(project);
-          }
-          // console.log({ project });
-        } catch (error) {
-          return console.warn(`project ${id} unexistant`);
+    const projects = await this.api.getPlayers();
+    if (projects) {
+      for (const project of projects) {
+        for (let i = 0; i < 5; i++) {
+          this.projects.push(project);
         }
+        console.log({ project });
       }
+      this.setDefaultProject(projects[0]);
     }
+  }
+
+  setDefaultProject(project: Project) {
+    const newProject: SdgProject = project as SdgProject;
+    newProject.sdgNo = 0;
+    this.currentProject = newProject;
+    this.setImage(newProject.coverImage);
+  }
+
+  onCardIsHover(project: SdgProject | null) {
+    if (project) {
+      this.setImage(project.coverImage);
+      this.currentProject = project;
+    }
+  }
+
+  setImage(image: string) {
+    this.backgroundImage = `background-image:url('${image}')`;
+  }
+
+  formatSdgNumber() {
+    const no = this.currentProject?.sdgNo || 1;
+    return no < 10 ? `0${String(no)}` : `${String(no)}`;
   }
 
   ngOnInit(): void {
     this.fetchProject();
-    const cards = document.querySelector('.cards');
-    this.cardsWrapper = cards as HTMLElement;
+    const cards = document.querySelector('.cards') as HTMLElement;
+    this.cardsWrapper = cards;
+    setTimeout(() => {
+      if (cards) {
+        cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;
+      }
+    }, 500);
   }
 }
