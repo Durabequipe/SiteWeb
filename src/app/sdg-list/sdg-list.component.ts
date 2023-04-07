@@ -48,7 +48,7 @@ export class SdgListComponent implements OnInit {
         for (let i = 0; i < 8; i++) {
           newProjects.push(project);
         }
-        console.log({ project });
+        // console.log({ project });
       }
       this.projects = newProjects;
       this.setDefaultProject(projects[0]);

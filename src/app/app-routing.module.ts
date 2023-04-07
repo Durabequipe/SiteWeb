@@ -14,7 +14,7 @@ const routes: Routes = [
     component: SdgListComponent,
   },
   {
-    path: 'webdoc',
+    path: 'webdoc/:id',
     component: PlayerComponent,
   },
 ];

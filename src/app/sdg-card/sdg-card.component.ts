@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Project  } from '../models/projects';
+import { Project } from '../models/projects';
 
 @Component({
   selector: 'app-sdg-card',
@@ -20,7 +20,9 @@ export class SdgCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.video = this.project?.videos[0].paths[0];
+    if (this.project?.videos || false) {
+      this.video = this.project?.videos[0].paths[0];
+    }
   }
 
   setImage() {
