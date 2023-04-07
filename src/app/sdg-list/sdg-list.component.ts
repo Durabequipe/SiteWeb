@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ProjectService } from '../services/project.service';
-import { Project, SdgProject } from '../models/projects';
+import { Project  } from '../models/projects';
 
 @Component({
   selector: 'app-sdg-list',
@@ -9,7 +9,7 @@ import { Project, SdgProject } from '../models/projects';
 })
 export class SdgListComponent implements OnInit {
   public backgroundImage = '';
-  public currentProject: SdgProject | null = null;
+  public currentProject: Project | null = null;
   public projects: Project[]; 
   private cardsWrapper: HTMLElement | null = null;
 
@@ -53,13 +53,12 @@ export class SdgListComponent implements OnInit {
   }
 
   setDefaultProject(project: Project) {
-    const newProject: SdgProject = project as SdgProject;
-    newProject.sdgNo = 0;
+    const newProject: Project = project as Project;
     this.currentProject = newProject;
     this.setImage(newProject.coverImage);
   }
 
-  onCardIsHover(project: SdgProject | null) {
+  onCardIsHover(project: Project | null) {
     if (project) {
       this.setImage(project.coverImage);
       this.currentProject = project;
@@ -70,10 +69,6 @@ export class SdgListComponent implements OnInit {
     this.backgroundImage = `background-image:url('${image}')`;
   }
 
-  formatSdgNumber() {
-    const no = this.currentProject?.sdgNo || 1;
-    return no < 10 ? `0${String(no)}` : `${String(no)}`;
-  }
 
   ngOnInit(): void {
     this.fetchProject();
