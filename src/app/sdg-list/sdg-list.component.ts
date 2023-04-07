@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
-import { Project  } from '../models/projects';
+import { Project } from '../models/projects';
 
 @Component({
   selector: 'app-sdg-list',
@@ -10,15 +10,17 @@ import { Project  } from '../models/projects';
 export class SdgListComponent implements OnInit {
   public backgroundImage = '';
   public currentProject: Project | null = null;
-  public projects: Project[]; 
+  public projects: Project[];
   private cardsWrapper: HTMLElement | null = null;
 
   constructor(private api: ProjectService) {
     const projects = [] as Project[];
+    // just to avoid having nothing to display 
+    // if page loading is really slow
     for (let i = 1; i < 16; i++) {
       projects.push({} as Project);
     }
-    this.projects = projects
+    this.projects = projects;
   }
 
   onMouseMove(e: any) {
@@ -38,15 +40,17 @@ export class SdgListComponent implements OnInit {
 
   async fetchProject() {
     const projects = await this.api.getPlayers();
-    const newProjects = []
+    const newProjects = [];
     if (projects) {
       for (const project of projects) {
+        // just for developement time
+        // allow to have multiple project to show
         for (let i = 0; i < 8; i++) {
           newProjects.push(project);
         }
         console.log({ project });
       }
-      this.projects = newProjects
+      this.projects = newProjects;
       this.setDefaultProject(projects[0]);
     }
   }
@@ -67,7 +71,6 @@ export class SdgListComponent implements OnInit {
   setImage(image: string) {
     this.backgroundImage = `background-image:url('${image}')`;
   }
-
 
   ngOnInit(): void {
     this.fetchProject();
