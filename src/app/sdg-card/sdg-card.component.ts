@@ -22,12 +22,14 @@ export class SdgCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.video = this.project?.videos[0].paths[0];
-    this.sdgNumberPlusOne = (this.sdgNumber || 0) + 1;
+    if (this.project && this.project.videos) {
+      this.video = this.project?.videos[0].paths[0];
+      this.sdgNumberPlusOne = (this.sdgNumber || 0) + 1;
+    }
   }
 
   setImage() {
-    if (this.project) {
+    if (this.project && this.project.videos) {
       return `background-image:url('${this.project.thumbnailImage}')`;
     } else {
       return '';

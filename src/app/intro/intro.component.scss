@@ -1,41 +1,172 @@
-h1 {
-  z-index: 2;
-  color: white;
-  font-size: 100px;
-  text-align: center;
+/* ==========================================================================
+**   0. LAYOUT
+** ========================================================================*/
+
+.main {
+  width:100%;
+  height: 100%;
+  position:relative;
 }
 
-a {
-  z-index: 2;
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+.wrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  flex-direction: column;
 }
+
+.background-cepia {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:3;
+  width:100%;
+  height: 100%;
+  background: rgba(171, 79, 79, 0.2);
+}
+
+.background-gradient {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:4;
+  width:100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 49.79%, rgba(0, 0, 0, 0.1797) 60.73%, #0B0415 88.02%);
+}
+
+.video__wrapper {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  height: 100%;
+  width: 100%;
+  background: black;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+**   1. VIDEO
+** ========================================================================*/
 
 shammas-player {
-  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
-.video__wrapper {
-  border: 2px solid #000;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
+
+video {
+  position: absolute;
+  object-fit: cover;
+  height:100%;
+  width:100%;
+  bottom: 0;
+}
+
+/* ==========================================================================
+**   2. CONTENT
+** ========================================================================*/
+
+.content {
   display: flex;
+  z-index: 5;
+  position: relative;
+  height: 100%;
+  width:100%;
+  align-items: center;
+  justify-content:center;
+}
+
+.content__wrapper {
+  display:flex;
+  gap: 2rem;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  margin: 5%;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+
+a {
+  display: flex;
+  box-sizing: border-box;
+  padding: 5px 40px;
+  text-decoration: none;
+  font-family: "M plus 1p";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 51px;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background: rgba(240, 240, 240, 0.2);
+  border: 1.28571px solid #ffffff;
+  border-radius: 50px;
+}
+
+p {
+  display: flex;
+  font-family: "M plus 1p";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 30px;
+  align-items: center;
+  text-align: center;
+  color: white;
+  margin: 0;
+  max-width: 110ch;
+}
+
+h1 {
+  display: flex;
+  margin: 0;
   align-items: center;
   justify-content: center;
-  margin: 0;
-  display:flex;
-  flex-direction:column;
+  color: white;
+  font-family: "M plus 1p";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 100px;
+  line-height: 110px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
+}
+
+.play {
+  background:transparent;
+  border:none;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+**   3. LOGO
+** ========================================================================*/
+
+.logo__wrapper {
+  display: flex;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 5% 5% 5%;
+  justify-content: space-between;
 }

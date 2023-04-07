@@ -10,6 +10,16 @@ import { Project, SdgProject } from '../models/projects';
 export class SdgListComponent implements OnInit {
   public backgroundImage = '';
   public currentProject: SdgProject | null = null;
+  public projects: Project[]; 
+  private cardsWrapper: HTMLElement | null = null;
+
+  constructor(private api: ProjectService) {
+    const projects = [] as Project[];
+    for (let i = 1; i < 16; i++) {
+      projects.push({} as Project);
+    }
+    this.projects = projects
+  }
 
   onMouseMove(e: any) {
     const speed = 30;
@@ -27,21 +37,17 @@ export class SdgListComponent implements OnInit {
     }
   }
 
-  public projects: Project[] = [];
-  public lastX = 0;
-  private cardsWrapper: HTMLElement | null = null;
-
-  constructor(private api: ProjectService) {}
-
   async fetchProject() {
     const projects = await this.api.getPlayers();
+    const newProjects = []
     if (projects) {
       for (const project of projects) {
-        for (let i = 0; i < 5; i++) {
-          this.projects.push(project);
+        for (let i = 0; i < 8; i++) {
+          newProjects.push(project);
         }
         console.log({ project });
       }
+      this.projects = newProjects
       this.setDefaultProject(projects[0]);
     }
   }
