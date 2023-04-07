@@ -24,8 +24,7 @@ export class SdgListComponent implements OnInit {
   onMouseMove(e: any) {
     const speed = 30;
     const move = (element: HTMLElement, value: number) => {
-      const moveValue = element.scrollLeft + value;
-      element.scrollLeft = moveValue;
+      element.scrollLeft = element.scrollLeft + value;
     };
 
     if (this.cardsWrapper) {

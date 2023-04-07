@@ -10,7 +10,6 @@ export class SdgCardComponent implements OnInit {
   @Output() cardIsHover = new EventEmitter<Project>();
   @Input() project: Project | null = null;
   @Input() sdgNumber: number | undefined = undefined;
-  public sdgNumberPlusOne = -1;
   public video: string | undefined = undefined;
 
   onMouseEnter(e: any) {
@@ -21,10 +20,7 @@ export class SdgCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.project && this.project.videos) {
-      this.video = this.project?.videos[0].paths[0];
-      this.sdgNumberPlusOne = (this.sdgNumber || 0) + 1;
-    }
+    this.video = this.project?.videos[0].paths[0];
   }
 
   setImage() {
