@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
 
+function isBetween(value: number, min: number, max: number) {
+  return value >= min && value <= max;
+}
+
 @Component({
   selector: 'app-sdg-list',
   templateUrl: './sdg-list.component.html',
@@ -15,7 +19,7 @@ export class SdgListComponent implements OnInit {
 
   constructor(private api: ProjectService) {
     const projects = [] as Project[];
-    // just to avoid having nothing to display 
+    // just to avoid having nothing to display
     // if page loading is really slow
     for (let i = 1; i < 16; i++) {
       projects.push({} as Project);
@@ -30,7 +34,15 @@ export class SdgListComponent implements OnInit {
     };
 
     if (this.cardsWrapper) {
-      if (e.movementX > 0) {
+      const min = [0, 20];
+      const max = [screen.width - 20, screen.width];
+
+      console.log(e);
+      if (isBetween(e.clientX, min[0], min[1])) {
+        move(this.cardsWrapper, speed * -1);
+      } else if (isBetween(e.clientX, max[0], max[1])) {
+        move(this.cardsWrapper, speed);
+      } else if (e.movementX > 0) {
         move(this.cardsWrapper, speed);
       } else if (e.movementX < 0) {
         move(this.cardsWrapper, speed * -1);

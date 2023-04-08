@@ -1,6 +1,8 @@
-/* ==========================================================================
-**   0. LAYOUT
-** ========================================================================*/
+@import "./../../styles/_mixins";
+
+// =====================================================================
+// 0. LAYOUT
+// =====================================================================
 
 .main {
   width: 100%;
@@ -9,29 +11,23 @@
 }
 
 .wrapper {
-  display: flex;
+  @include layout-display(flex, column);
   position: relative;
   height: 100%;
-  flex-direction: column;
 }
 
-.background-cepia {
-  position: absolute;
-  top: 0;
-  left: 0;
+.background {
+  @include layout-position(absolute, 0, unset, unset, 0);
+  @include esthetic-background(unset, unset);
+}
+
+.background--cepia {
   z-index: 3;
-  width: 100%;
-  height: 100%;
   background: rgba(171, 79, 79, 0.2);
 }
 
-.background-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
+.background--gradient {
   z-index: 4;
-  width: 100%;
-  height: 100%;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 49.79%,
@@ -41,24 +37,19 @@
 }
 
 .video__wrapper {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include layout-position(absolute, 0, unset, unset, 0);
+  @include layout-display(flex, column, center, center);
   border: none;
   height: 100%;
   width: 100%;
   background: black;
   text-align: center;
-  align-items: center;
-  justify-content: center;
   margin: 0;
-  flex-direction: column;
 }
 
-/* ==========================================================================
-**   1. VIDEO
-** ========================================================================*/
+// =====================================================================
+// 1. VIDEO
+// =====================================================================
 
 // shammas-player {
 //   position: absolute;
@@ -70,19 +61,18 @@
 // }
 
 video {
-  position: absolute;
+  @include layout-position(absolute, unset, unset, 0, unset);
   object-fit: cover;
   height: 100%;
   width: 100%;
-  bottom: 0;
 }
 
-/* ==========================================================================
-**   2. CONTENT
-** ========================================================================*/
+// =====================================================================
+// 2. CONTENT
+// =====================================================================
 
 .content {
-  display: grid;
+  @include layout-display(grid, unset, center, center);
   z-index: 5;
   position: relative;
   box-sizing: border-box;
@@ -90,73 +80,41 @@ video {
   grid-template-columns: 1fr;
   height: 100%;
   width: 100%;
-  align-items: center;
-  justify-content: center;
   padding: 0 5%;
 }
 
 .content__wrapper {
-  display: flex;
-  gap: 2rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include layout-display(flex, column, center, center, 2rem);
 }
 
 .buttons {
-  display: flex;
+  @include layout-display(flex, row, center, unset, 2rem);
   width: 100%;
-  gap: 2rem;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 a {
+  @include font-button(white, center);
   display: flex;
   box-sizing: border-box;
-  padding: 5px 40px;
+  padding: 0.25em 2.14em;
   text-decoration: none;
-  font-family: "M plus 1p";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 30px;
-  line-height: 51px;
-  align-items: center;
-  text-align: center;
-  color: white;
   background: rgba(240, 240, 240, 0.2);
-  border: 1.28571px solid #ffffff;
-  border-radius: 50px;
+  border: 2px solid white;
+  border-radius: 5rem;
 }
 
 p {
-  display: flex;
-  font-family: "M plus 1p";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 25px;
-  line-height: 30px;
-  align-items: center;
-  text-align: center;
-  color: white;
+  @include layout-display(flex, row, unset, center);
+  @include font-paragraph--showcase(white, center);
   margin: 0;
   max-width: 110ch;
 }
 
 h1 {
-  display: flex;
+  @include font-h1(white, center);
+  @include layout-display(flex, row, center, center);
   margin: 0;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: "M plus 1p";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 100px;
-  line-height: 110px;
-  text-align: center;
-  text-transform: uppercase;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
 }
 
 .play {
@@ -165,17 +123,18 @@ h1 {
   cursor: pointer;
 }
 
-/* ==========================================================================
-**   3. LOGO
-** ========================================================================*/
+// =====================================================================
+// 3. LOGO
+// =====================================================================
 
 .logo__wrapper {
-  display: flex;
+  @include layout-display(flex, row, space-between);
   box-sizing: border-box;
   height: 100%;
   bottom: 0;
   width: 100%;
-  justify-content: space-between;
+  margin: 2rem 0;
+  gap: 10%;
 }
 
 .logo__wrapper {

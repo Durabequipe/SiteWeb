@@ -1,6 +1,7 @@
+@import "./../../styles/_mixins";
+
 .wrapper {
-  display: grid;
-  flex-direction: column;
+  @include layout-display(grid,column);
   height: 100%;
   grid-template-rows: 60% 40%;
   background: linear-gradient(
@@ -26,27 +27,17 @@
 }
 
 .sdg-content {
-  display: flex;
-  align-items: center;
-  max-width:66%;
+  @include layout-display(flex,row,unset,center);
+  max-width: 66%;
 }
 
 .sdg-number {
-  $line-height:580px;
-  position:absolute;
-  overflow:hidden;
-  right:0;
-  top: calc($line-height / 4);
-  font-family: "M plus 1p";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 500.713px;
-  line-height: $line-height;
-  display: flex;
+  $line-height: 58rem;
+  @include font-sdgnumber(rgba(255, 255, 255, 0.6), unset);
+  @include layout-position(absolute,calc($line-height / 4),0);
+  @include layout-display(flex,row,unset,center);
+  overflow: hidden;
   margin-left: auto;
-  align-items: center;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
 }
 
 .sdg-number span {
@@ -55,15 +46,7 @@
 }
 
 h1 {
-  font-family: "M plus 1p";
-  font-style: normal;
-  font-weight: 900;
-  font-size: 100px;
-  line-height: 110px;
-  display: flex;
-  align-items: center;
-  text-transform: uppercase;
-  color: white;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
-  margin-left:5%;
+  @include font-h1(white, left);
+  @include layout-display(flex,row,unset,center);
+  margin-left: 5%;
 }
