@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../services/project.service';
+import { ProjectService } from '../../services/project.service';
 import '@shammas44/interactive-video-player';
-import { Project } from '../models/projects';
+import { Project } from '../../models/projects';
 import { Player as PlayerElement } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 
 type LocationData = {
-  navigationId:number;
-  project:Project;
-}
+  navigationId: number;
+  project: Project;
+};
 
 @Component({
   selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss'],
+  templateUrl: './player.Component.html',
+  styleUrls: ['./player.Component.scss'],
 })
 export class PlayerComponent implements OnInit {
-  private project: Project | null;
+  
+  public project: Project | null;
   private projectId: string;
 
   constructor(

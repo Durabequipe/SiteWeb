@@ -7,18 +7,22 @@ import { APIInterceptorService } from './services/api-interceptor.service';
 import { HttpService } from './services/http.service';
 import { SdgListComponent } from './sdg-list/sdg-list.component';
 import { SdgCardComponent } from './sdg-card/sdg-card.component';
-import { PlayerComponent } from './player/player.component';
 import { IntroComponent } from './intro/intro.component';
+import { WebdocModule } from './webdoc/webdoc.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     SdgListComponent,
     SdgCardComponent,
-    PlayerComponent,
     IntroComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    WebdocModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
