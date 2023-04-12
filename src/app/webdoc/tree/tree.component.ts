@@ -1,5 +1,11 @@
-import { Component, Input,AfterViewInit,AfterContentInit } from '@angular/core';
-import { treeMaker, Tree, TreeParams } from '@roumi/treemaker';
+import {
+  Component,
+  Input,
+  AfterViewInit,
+  AfterContentInit,
+} from '@angular/core';
+import treeMaker from '../../lib/tree';
+import { Tree, TreeParams } from '../../models/treemaker';
 import { VideoNode } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
@@ -28,10 +34,9 @@ export class TreeComponent implements AfterContentInit {
       });
     });
     this.project = project.project;
-
   }
 
-  ngAfterContentInit(){
+  ngAfterContentInit() {
     if (this.project) {
       this.videos = this.videoToMap(this.project.videos);
       this.drawTree(this.project.entrypointId);
@@ -49,8 +54,8 @@ export class TreeComponent implements AfterContentInit {
   private drawTree(entrypointId: string) {
     try {
       this.generateTree(this.videos.get(entrypointId) as VideoNode, this.tree);
-      console.log(this.treeParams,this.tree)
-      console.log(document.querySelector('#tree'))
+      console.log(this.treeParams, this.tree);
+      console.log(document.querySelector('#tree'));
 
       treeMaker(this.tree, {
         id: 'tree',
@@ -61,10 +66,10 @@ export class TreeComponent implements AfterContentInit {
         link_width: '4px',
         link_color: '#ff5259',
       });
-      console.log(document.querySelector('#tree'))
+      console.log(document.querySelector('#tree'));
     } catch (error) {
       const e = error as Error;
-      console.log(error)
+      console.log(error);
       if (e.message === 'Maximum call stack size exceeded') {
         console.warn('Maximum call stack size exceeded');
       }
