@@ -1,0 +1,26 @@
+@import "../../../styles/mixins";
+
+.wrapper {
+  @include layout-display(flex, column, unset, center);
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#tooltip {
+  @include font-paragraph--showcase(white, center);
+  @include layout-display(flex, row, center, center);
+  position: fixed;
+  border-radius: var(--border-radius);
+  text-align: center;
+  overflow: hidden;
+  background-color: red;
+  padding: 1rem;
+}
+
+.tooltip--bottom {
+  bottom: 0;
+  border-radius: 0 !important;
+  width: 100%;
+  height: 10%;
+}

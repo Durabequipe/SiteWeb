@@ -35,6 +35,13 @@
   line-height: 5.1rem;
 }
 
+@mixin font-paragraph($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-weight: 900;
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+
 @mixin font-paragraph--showcase($color, $text-align) {
   @include font-style($color, $text-align);
   font-weight: 900;
