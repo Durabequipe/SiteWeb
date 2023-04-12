@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
+import { percentageBetween } from '../lib/utils';
 
 function isBetween(value: number, min: number, max: number) {
   return value >= min && value <= max;
@@ -28,25 +29,10 @@ export class SdgListComponent implements OnInit {
   }
 
   onMouseMove(e: any) {
-    const speed = 30;
-    const move = (element: HTMLElement, value: number) => {
-      element.scrollLeft = element.scrollLeft + value;
-    };
-
+    const windowPosition = percentageBetween(e.x, 0, screen.width);
     if (this.cardsWrapper) {
-      const min = [0, 20];
-      const max = [screen.width - 20, screen.width];
-
-      console.log(e);
-      if (isBetween(e.clientX, min[0], min[1])) {
-        move(this.cardsWrapper, speed * -1);
-      } else if (isBetween(e.clientX, max[0], max[1])) {
-        move(this.cardsWrapper, speed);
-      } else if (e.movementX > 0) {
-        move(this.cardsWrapper, speed);
-      } else if (e.movementX < 0) {
-        move(this.cardsWrapper, speed * -1);
-      }
+      const scrollWidth = this.cardsWrapper.scrollWidth;
+      this.cardsWrapper.scrollLeft = (windowPosition * scrollWidth) / 100;
     }
   }
 
