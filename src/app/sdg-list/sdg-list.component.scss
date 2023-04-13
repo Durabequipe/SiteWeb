@@ -1,7 +1,7 @@
 @import "./../../styles/_mixins";
 
 .wrapper {
-  @include layout-display(grid,column);
+  @include layout-display(grid, column);
   height: 100%;
   grid-template-rows: 60% 40%;
   background: linear-gradient(
@@ -14,12 +14,12 @@
 
 .cards {
   display: flex;
-  overflow: scroll;
   gap: calc(2rem + var(--card-border-width) + var(--card-border-width));
+  height: -webkit-fill-available;
+  padding: 0 5% 2rem 5%;
+  overflow: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  height: -webkit-fill-available;
-  padding: 0 2rem 2rem 2rem;
 }
 
 .cards::-webkit-scrollbar {
@@ -27,15 +27,15 @@
 }
 
 .sdg-content {
-  @include layout-display(flex,row,unset,center);
+  @include layout-display(flex, row, unset, center);
   max-width: 66%;
 }
 
 .sdg-number {
   $line-height: 58rem;
   @include font-sdgnumber(rgba(255, 255, 255, 0.6), unset);
-  @include layout-position(absolute,calc($line-height / 4),0);
-  @include layout-display(flex,row,unset,center);
+  @include layout-position(absolute, calc($line-height / 4), 0);
+  @include layout-display(flex, row, unset, center);
   overflow: hidden;
   margin-left: auto;
 }
@@ -47,6 +47,6 @@
 
 h1 {
   @include font-h1(white, left);
-  @include layout-display(flex,row,unset,center);
+  @include layout-display(flex, row, unset, center);
   margin-left: 5%;
 }

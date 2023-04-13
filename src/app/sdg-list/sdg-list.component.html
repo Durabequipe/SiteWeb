@@ -1,13 +1,14 @@
-<div class="wrapper" style="{{backgroundImage}}">
- <div class="sdg-content">
-   <h1>{{currentProject?.name}}</h1>
- <div class="sdg-number">
-  <span>
-    {{ currentProject?.description }}
-  </span>
- </div>
- </div>
-<div class="cards" (mousemove)="onMouseMove($event)">
-  <app-sdg-card (cardIsHover)="onCardIsHover($event)" *ngFor="let project of projects; index as i" [project]="project" [sdgNumber]="i"></app-sdg-card>
-</div>
+<div class="wrapper" style="{{backgroundImage}}" (mousemove)="onMouseMove($event)">
+  <div class="sdg-content">
+    <h1>{{currentProject?.name}}</h1>
+    <div class="sdg-number">
+      <span>
+        {{ currentProject?.description }}
+      </span>
+    </div>
+  </div>
+  <div class="cards" >
+    <app-sdg-card (cardIsHover)="onCardIsHover($event)" *ngFor="let project of projects; index as i" [project]="project"
+      [sdgNumber]="i"></app-sdg-card>
+  </div>
 </div>
