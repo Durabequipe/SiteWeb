@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
 import { percentageBetween } from '../lib/utils';
-import gsap from 'gsap';
 
 function isBetween(value: number, min: number, max: number) {
   return value >= min && value <= max;
