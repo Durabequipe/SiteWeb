@@ -1,4 +1,4 @@
-<shammas-player></shammas-player>
+<shammas-player (shammas-sequence-started)="onSequenceStart($event)" (shammas-video-end)="onVideoEnd($event)"></shammas-player>
 <div style="display:flex;justify-content:center;">
-  <a routerLink="tree" [state]="{project}" routerLinkActive="active">Tree</a>
+  <a routerLink="tree" [state]="{project,watchedSequenceIds}" routerLinkActive="active">Tree</a>
 </div>

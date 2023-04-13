@@ -8,6 +8,7 @@ import { Project } from '../../models/projects';
 type LocationData = {
   navigationId: number;
   project: Project;
+  watchedSequenceIds: string[];
 };
 
 type V = VideoNode & {
@@ -23,11 +24,14 @@ export class TreeComponent implements AfterContentInit {
   public tree: Tree = {};
   public treeParams: TreeParams = {};
   public videos: Map<string, V> = new Map();
-  @Input() project: Project | null = null;
+  public project: Project | null = null;
+  public watchedSequenceIds: string[] = [];
 
   constructor(private location: Location) {
-    const project = this.location.getState() as LocationData;
-    this.project = project.project;
+    const data = this.location.getState() as LocationData;
+    console.log(data);
+    this.project = data.project;
+    this.watchedSequenceIds = data.watchedSequenceIds;
   }
 
   ngAfterContentInit() {
@@ -77,8 +81,8 @@ export class TreeComponent implements AfterContentInit {
                 tooltipSpan.classList.remove('is-display-none');
                 if (window.innerWidth < 500) {
                   tooltipSpan.classList.add('tooltip--bottom');
-                  tooltipSpan.style.top = 'unset'
-                  tooltipSpan.style.left = 'unset'
+                  tooltipSpan.style.top = 'unset';
+                  tooltipSpan.style.left = 'unset';
                 } else {
                   tooltipSpan.classList.remove('tooltip--bottom');
                   const x = e.clientX;
@@ -99,8 +103,18 @@ export class TreeComponent implements AfterContentInit {
     }
   }
 
+  private setStyles(id: string) {
+    const isAlreadyWatched = this.watchedSequenceIds.includes(id);
+    return isAlreadyWatched
+      ? { background: 'red', opacity: '1',color:"white" }
+      : { background: 'unset', opacity: '0.3',color: 'black' };
+  }
+
   private generateTree(node: V, ref: Tree) {
-    this.treeParams[node.id] = { trad: node.name };
+    this.treeParams[node.id] = {
+      trad: node.name,
+      styles: this.setStyles(node.id),
+    };
     this.tree[node.id] = {};
     this.generateNode(node, ref[node.id]);
   }
@@ -112,7 +126,10 @@ export class TreeComponent implements AfterContentInit {
       this.videos.set(interaction.id, video);
       ref[video.id] = {};
       const newRef = ref[video.id];
-      this.treeParams[video.id] = { trad: video.name };
+      this.treeParams[video.id] = {
+        trad: video.name,
+        styles: this.setStyles(interaction.id),
+      };
       this.generateNode(video, newRef);
     }
   }

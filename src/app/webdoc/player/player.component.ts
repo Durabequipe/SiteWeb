@@ -19,6 +19,7 @@ export class PlayerComponent implements OnInit {
   
   public project: Project | null;
   private projectId: string;
+  public watchedSequenceIds: string[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -36,6 +37,14 @@ export class PlayerComponent implements OnInit {
     } else {
       this.init();
     }
+  }
+
+  onSequenceStart(e:any){
+    this.watchedSequenceIds.push(e.detail.id)
+  }
+
+  onVideoEnd(e:any){
+    console.log(e)
   }
 
   async setAndInitProject() {
