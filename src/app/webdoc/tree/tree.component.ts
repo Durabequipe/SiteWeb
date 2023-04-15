@@ -72,15 +72,17 @@ export class TreeComponent implements AfterContentInit {
         document
           .querySelectorAll('.tree__container__step__card p')
           .forEach((p) => {
-            p.addEventListener('mouseleave', (e: any) => {
+            p.addEventListener('mouseleave', (e) => {
+              const event = e as MouseEvent;
               tooltipSpan.classList.add('is-display-none');
-              const x = e.clientX;
-              const y = e.clientY;
+              const x = event.clientX;
+              const y = event.clientY;
               tooltipSpan.style.top = y + 20 + 'px';
               tooltipSpan.style.left = x + 20 + 'px';
             });
-            p.addEventListener('mousemove', (e: any) => {
-              const id = e.target.id.split('_')[1];
+            p.addEventListener('mousemove', (e) => {
+              const event = e as MouseEvent;
+              const id = (event.target as HTMLElement).id.split('_')[1];
               const video = this.videos.get(id) as V;
               if (video.content) {
                 tooltipSpan.innerText = video?.content ?? '';
@@ -91,8 +93,8 @@ export class TreeComponent implements AfterContentInit {
                   tooltipSpan.style.left = 'unset';
                 } else {
                   tooltipSpan.classList.remove('tooltip--bottom');
-                  const x = e.clientX;
-                  const y = e.clientY;
+                  const x = event.clientX;
+                  const y = event.clientY;
                   tooltipSpan.style.top = y + 20 + 'px';
                   tooltipSpan.style.left = x + 20 + 'px';
                 }
