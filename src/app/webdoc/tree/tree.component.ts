@@ -60,6 +60,7 @@ export class TreeComponent implements AfterContentInit {
     });
     if (project.length > 0) {
       this.project = project[0];
+      this.ngAfterContentInit()
     }
   }
 
