@@ -16,10 +16,26 @@ type V = VideoNode & {
   content?: string;
 };
 
+enum TooltipClass {
+  displayNone = 'is-display-none',
+  displayBottom = 'tooltip--bottom',
+}
+
+type ToolTipStyle = {
+  top: string;
+  left: string;
+  cssClass: TooltipClass;
+  add?: boolean;
+};
+
 const MSG = {
   ERROR_INFINITE_TREE:
     'A video interaction is not allowed to point to a previous video.',
 };
+
+function px(x: number) {
+  return `${x}px`;
+}
 
 @Component({
   selector: 'app-tree',
@@ -60,7 +76,7 @@ export class TreeComponent implements AfterContentInit {
     });
     if (project.length > 0) {
       this.project = project[0];
-      this.ngAfterContentInit()
+      this.ngAfterContentInit();
     }
   }
 
@@ -72,36 +88,40 @@ export class TreeComponent implements AfterContentInit {
     return map;
   }
 
-  private getHideTooltip(tooltipElement: HTMLElement) {
+  private getHideTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
       const event = e as MouseEvent;
-      tooltipElement.classList.add('is-display-none');
-      const x = event.clientX;
-      const y = event.clientY;
-      tooltipElement.style.top = y + 20 + 'px';
-      tooltipElement.style.left = x + 20 + 'px';
+      const [top, left] = [px(event.clientY + 20), px(event.clientX + 20)];
+      const css = { top, left, cssClass: TooltipClass.displayNone };
+      this.styleTooltip(tooltip, css);
     };
   }
 
-  private getShowTooltip(tooltipElement: HTMLElement) {
+  private styleTooltip(tooltip: HTMLElement, style: ToolTipStyle) {
+    style?.add ?? true
+      ? tooltip.classList.add(style.cssClass)
+      : tooltip.classList.remove(style.cssClass);
+    tooltip.style.top = style.top;
+    tooltip.style.left = style.left;
+  }
+
+  private getShowTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
       const event = e as MouseEvent;
+      const [x, y] = [event.clientX, event.clientY];
       const id = (e.target as HTMLElement).id.split('_')[1];
       const video = this.videos.get(id) as V;
+
+      const cssClass = TooltipClass.displayNone;
+      const show = { top: 'unset', left: 'unset', cssClass };
+      const hide = { add: false, top: px(y + 20), left: px(x + 20), cssClass };
+
       if (video.content) {
-        tooltipElement.innerText = video?.content ?? '';
-        tooltipElement.classList.remove('is-display-none');
-        if (window.innerWidth < 500) {
-          tooltipElement.classList.add('tooltip--bottom');
-          tooltipElement.style.top = 'unset';
-          tooltipElement.style.left = 'unset';
-        } else {
-          tooltipElement.classList.remove('tooltip--bottom');
-          const x = event.clientX;
-          const y = event.clientY;
-          tooltipElement.style.top = y + 20 + 'px';
-          tooltipElement.style.left = x + 20 + 'px';
-        }
+        tooltip.innerText = video?.content ?? '';
+        tooltip.classList.remove(TooltipClass.displayNone);
+        window.innerWidth > 500
+          ? this.styleTooltip(tooltip, show)
+          : this.styleTooltip(tooltip, hide);
       }
     };
   }
