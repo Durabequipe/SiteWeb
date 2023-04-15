@@ -1,4 +1,4 @@
-import { Component, Input, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import treeMaker from '../../lib/tree';
 import { Tree, TreeParams } from '../../models/treemaker';
 import { VideoNode } from '@shammas44/interactive-video-player';
@@ -15,6 +15,11 @@ type V = VideoNode & {
   content?: string;
 };
 
+const MSG = {
+  ERROR_INFINITE_TREE:
+    'A video interaction is not allowed to point to a previous video.',
+};
+
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
@@ -26,6 +31,7 @@ export class TreeComponent implements AfterContentInit {
   public videos: Map<string, V> = new Map();
   public project: Project | null = null;
   public watchedSequenceIds: string[] = [];
+  private visitedVideoNodes = new Set();
 
   constructor(private location: Location) {
     const data = this.location.getState() as LocationData;
@@ -106,8 +112,8 @@ export class TreeComponent implements AfterContentInit {
   private setStyles(id: string) {
     const isAlreadyWatched = this.watchedSequenceIds.includes(id);
     return isAlreadyWatched
-      ? { background: 'red', opacity: '1',color:"white" }
-      : { background: 'unset', opacity: '0.3',color: 'black' };
+      ? { background: 'red', opacity: '1', color: 'white' }
+      : { background: 'unset', opacity: '0.3', color: 'black' };
   }
 
   private generateTree(node: V, ref: Tree) {
@@ -120,6 +126,10 @@ export class TreeComponent implements AfterContentInit {
   }
 
   private generateNode(node: V, ref: Tree) {
+    if (this.visitedVideoNodes.has(node.id)) {
+      throw new Error(MSG.ERROR_INFINITE_TREE);
+    }
+
     for (const interaction of node?.interactions ?? []) {
       const video = this.videos.get(interaction.id) as V;
       video.content = interaction.content;
