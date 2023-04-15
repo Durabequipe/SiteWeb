@@ -56,6 +56,40 @@ export class TreeComponent implements AfterContentInit {
     return map;
   }
 
+  private getHideTooltip(tooltipElement: HTMLElement) {
+    return (e: Event) => {
+      const event = e as MouseEvent;
+      tooltipElement.classList.add('is-display-none');
+      const x = event.clientX;
+      const y = event.clientY;
+      tooltipElement.style.top = y + 20 + 'px';
+      tooltipElement.style.left = x + 20 + 'px';
+    };
+  }
+
+  private getShowTooltip(tooltipElement: HTMLElement) {
+    return (e: Event) => {
+      const event = e as MouseEvent;
+      const id = (e.target as HTMLElement).id.split('_')[1];
+      const video = this.videos.get(id) as V;
+      if (video.content) {
+        tooltipElement.innerText = video?.content ?? '';
+        tooltipElement.classList.remove('is-display-none');
+        if (window.innerWidth < 500) {
+          tooltipElement.classList.add('tooltip--bottom');
+          tooltipElement.style.top = 'unset';
+          tooltipElement.style.left = 'unset';
+        } else {
+          tooltipElement.classList.remove('tooltip--bottom');
+          const x = event.clientX;
+          const y = event.clientY;
+          tooltipElement.style.top = y + 20 + 'px';
+          tooltipElement.style.left = x + 20 + 'px';
+        }
+      }
+    };
+  }
+
   private drawTree(entrypointId: string) {
     try {
       this.generateTree(this.videos.get(entrypointId) as VideoNode, this.tree);
@@ -72,41 +106,16 @@ export class TreeComponent implements AfterContentInit {
         document
           .querySelectorAll('.tree__container__step__card p')
           .forEach((p) => {
-            p.addEventListener('mouseleave', (e) => {
-              const event = e as MouseEvent;
-              tooltipSpan.classList.add('is-display-none');
-              const x = event.clientX;
-              const y = event.clientY;
-              tooltipSpan.style.top = y + 20 + 'px';
-              tooltipSpan.style.left = x + 20 + 'px';
-            });
-            p.addEventListener('mousemove', (e) => {
-              const event = e as MouseEvent;
-              const id = (event.target as HTMLElement).id.split('_')[1];
-              const video = this.videos.get(id) as V;
-              if (video.content) {
-                tooltipSpan.innerText = video?.content ?? '';
-                tooltipSpan.classList.remove('is-display-none');
-                if (window.innerWidth < 500) {
-                  tooltipSpan.classList.add('tooltip--bottom');
-                  tooltipSpan.style.top = 'unset';
-                  tooltipSpan.style.left = 'unset';
-                } else {
-                  tooltipSpan.classList.remove('tooltip--bottom');
-                  const x = event.clientX;
-                  const y = event.clientY;
-                  tooltipSpan.style.top = y + 20 + 'px';
-                  tooltipSpan.style.left = x + 20 + 'px';
-                }
-              }
-            });
+            p.addEventListener('mousemove', this.getShowTooltip(tooltipSpan));
+            p.addEventListener('mouseleave', this.getHideTooltip(tooltipSpan));
           });
       }
     } catch (error) {
       const e = error as Error;
-      console.log(error);
-      if (e.message === 'Maximum call stack size exceeded') {
-        console.warn('Maximum call stack size exceeded');
+      console.warn(e);
+      const tree = document.querySelector('#tree') as HTMLDivElement;
+      if (tree) {
+        tree.innerText = MSG.ERROR_INFINITE_TREE;
       }
     }
   }
