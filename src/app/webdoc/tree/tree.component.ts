@@ -4,6 +4,7 @@ import { Tree, TreeParams } from '../../models/treemaker';
 import { VideoNode } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
+import { ProjectService } from 'src/app/services/project.service';
 
 type LocationData = {
   navigationId: number;
@@ -33,18 +34,32 @@ export class TreeComponent implements AfterContentInit {
   public watchedSequenceIds: string[] = [];
   private visitedVideoNodes = new Set();
 
-  constructor(private location: Location) {
+  constructor(private location: Location, private api: ProjectService) {
     const data = this.location.getState() as LocationData;
     console.log(data);
-    this.project = data.project;
-    this.watchedSequenceIds = data.watchedSequenceIds;
+    this.project = data.project || null;
+    this.watchedSequenceIds = data.watchedSequenceIds || [];
+    if (!this.project) {
+      const sdgId = document.location.pathname.split('/')[2];
+      this.fetchProject(sdgId);
+    }
   }
 
   ngAfterContentInit() {
     if (this.project) {
       this.videos = this.videoToMap(this.project.videos);
-      console.log(this.videos);
       this.drawTree(this.project.entrypointId);
+    }
+  }
+
+  async fetchProject(sdgId: string) {
+    const projects = await this.api.getPlayers();
+    const project = projects.filter((p) => {
+      if (p.description === sdgId) return p;
+      return;
+    });
+    if (project.length > 0) {
+      this.project = project[0];
     }
   }
 
