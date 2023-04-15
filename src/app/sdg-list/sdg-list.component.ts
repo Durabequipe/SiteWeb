@@ -3,10 +3,6 @@ import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
 import { percentageBetween } from '../lib/utils';
 
-function isBetween(value: number, min: number, max: number) {
-  return value >= min && value <= max;
-}
-
 const MIN_DESKTOP_WIDTH = 1000
 
 @Component({
@@ -33,7 +29,7 @@ export class SdgListComponent implements OnInit {
     });
   }
 
-  onMouseMove(e: any) {
+  onMouseMove(e: MouseEvent) {
     if (this.cardsWrapper) {
       const windowPosition = percentageBetween(e.x, 0, screen.width);
       const scrollWidth = this.cardsWrapper.scrollWidth;
