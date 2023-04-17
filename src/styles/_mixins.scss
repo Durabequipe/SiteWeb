@@ -18,6 +18,14 @@
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
 }
 
+@mixin font-header($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 3.9rem;
+  text-transform: uppercase;
+}
+
 @mixin font-card-heading($color, $text-align) {
   @include font-style($color, $text-align);
   text-align: left;
