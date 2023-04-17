@@ -5,5 +5,5 @@ export type Project = P & {
   coverImage: string;
   name: string;
   description: string;
+  isActive: boolean;
 };
-

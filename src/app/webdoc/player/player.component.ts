@@ -4,6 +4,7 @@ import '@shammas44/interactive-video-player';
 import { Project } from '../../models/projects';
 import { Player as PlayerElement } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
+import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 
 type LocationData = {
   navigationId: number;
@@ -16,14 +17,14 @@ type LocationData = {
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent implements OnInit {
-  
   public project: Project | null;
   private projectId: string;
   public watchedSequenceIds: string[] = [];
 
   constructor(
     private projectService: ProjectService,
-    private location: Location
+    private location: Location,
+    private watchedSequenceService: WatchedSequenceService
   ) {
     const project = this.location.getState() as LocationData;
     this.project = project.project;
@@ -39,12 +40,12 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  onSequenceStart(e:any){
-    this.watchedSequenceIds.push(e.detail.id)
+  onSequenceStart(e: any) {
+    this.watchedSequenceService.addUniqueId(e.detail.id);
   }
 
-  onVideoEnd(e:any){
-    console.log(e)
+  onVideoEnd(e: any) {
+    console.log(e);
   }
 
   async setAndInitProject() {

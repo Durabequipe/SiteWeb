@@ -5,6 +5,7 @@ import { VideoNode } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
 import { ProjectService } from 'src/app/services/project.service';
+import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 
 type LocationData = {
   navigationId: number;
@@ -49,7 +50,11 @@ export class TreeComponent implements AfterContentInit {
   public watchedSequenceIds: string[] = [];
   private visitedVideoNodes = new Set();
 
-  constructor(private location: Location, private api: ProjectService) {
+  constructor(
+    private location: Location,
+    private api: ProjectService,
+    private watchedSequenceService: WatchedSequenceService
+  ) {
     const data = this.location.getState() as LocationData;
     console.log(data);
     this.project = data.project || null;
@@ -114,7 +119,7 @@ export class TreeComponent implements AfterContentInit {
 
       const cssClass = TooltipClass.displayBottom;
       const bottom = { top: 'unset', left: 'unset', cssClass };
-      const normal = { top: px(y + 20), left: px(x + 20)  };
+      const normal = { top: px(y + 20), left: px(x + 20) };
 
       if (video.content) {
         tooltip.innerText = video?.content ?? '';
@@ -156,7 +161,7 @@ export class TreeComponent implements AfterContentInit {
   }
 
   private setStyles(id: string) {
-    const isAlreadyWatched = this.watchedSequenceIds.includes(id);
+    const isAlreadyWatched = this.watchedSequenceService.isWatched(id);
     return isAlreadyWatched
       ? { background: 'red', opacity: '1', color: 'white' }
       : { background: 'unset', opacity: '0.3', color: 'black' };
