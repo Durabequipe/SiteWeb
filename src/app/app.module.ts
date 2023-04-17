@@ -10,6 +10,7 @@ import { SdgCardComponent } from './sdg-card/sdg-card.component';
 import { WebdocModule } from './webdoc/webdoc.module';
 import { HomeComponent } from './home/home.component';
 import { IntroComponent } from './intro/intro.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { IntroComponent } from './intro/intro.component';
     SdgCardComponent,
     HomeComponent,
     IntroComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
