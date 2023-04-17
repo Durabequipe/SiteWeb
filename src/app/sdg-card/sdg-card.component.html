@@ -1,4 +1,10 @@
-<a routerLink="{{'/webdoc/'+ project?.description}}" [state]="{project}" routerLinkActive="active" class="card" (mouseenter)="onMouseEnter($event)"
-  style="{{setImage()}}">
-  <h1>{{project?.name}}</h1>
+<a
+  routerLink="{{ '/webdoc/' + project?.description }}"
+  [state]="{project}"
+  routerLinkActive="active"
+  class="card"
+  (mouseenter)="onMouseEnter($event)"
+  style="{{ setImage() }}"
+>
+  <h1>{{ project?.name }}</h1>
 </a>

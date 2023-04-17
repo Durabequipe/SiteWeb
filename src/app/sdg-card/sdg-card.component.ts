@@ -27,7 +27,7 @@ export class SdgCardComponent implements OnInit {
 
   setImage() {
     if (this.project && this.project.videos) {
-      return `background-image:url('${this.project.thumbnailImage}')`;
+      return `background-image:url('${this.project.thumbnailImage}'); object-fit: cover;`;
     } else {
       return '';
     }
