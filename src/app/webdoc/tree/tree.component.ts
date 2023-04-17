@@ -24,8 +24,7 @@ enum TooltipClass {
 type ToolTipStyle = {
   top: string;
   left: string;
-  cssClass: TooltipClass;
-  add?: boolean;
+  cssClass?: TooltipClass;
 };
 
 const MSG = {
@@ -98,9 +97,10 @@ export class TreeComponent implements AfterContentInit {
   }
 
   private styleTooltip(tooltip: HTMLElement, style: ToolTipStyle) {
-    style?.add ?? true
-      ? tooltip.classList.add(style.cssClass)
-      : tooltip.classList.remove(style.cssClass);
+    tooltip.classList.forEach((cssClass) => {
+      tooltip.classList.remove(cssClass);
+    });
+    if (style.cssClass) tooltip.classList.add(style.cssClass);
     tooltip.style.top = style.top;
     tooltip.style.left = style.left;
   }
@@ -112,16 +112,15 @@ export class TreeComponent implements AfterContentInit {
       const id = (e.target as HTMLElement).id.split('_')[1];
       const video = this.videos.get(id) as V;
 
-      const cssClass = TooltipClass.displayNone;
-      const show = { top: 'unset', left: 'unset', cssClass };
-      const hide = { add: false, top: px(y + 20), left: px(x + 20), cssClass };
+      const cssClass = TooltipClass.displayBottom;
+      const bottom = { top: 'unset', left: 'unset', cssClass };
+      const normal = { top: px(y + 20), left: px(x + 20)  };
 
       if (video.content) {
         tooltip.innerText = video?.content ?? '';
-        tooltip.classList.remove(TooltipClass.displayNone);
         window.innerWidth > 500
-          ? this.styleTooltip(tooltip, show)
-          : this.styleTooltip(tooltip, hide);
+          ? this.styleTooltip(tooltip, normal)
+          : this.styleTooltip(tooltip, bottom);
       }
     };
   }
