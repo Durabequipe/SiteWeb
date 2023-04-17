@@ -84,21 +84,6 @@ video {
   flex-wrap: wrap;
 }
 
-a {
-  @include font-button(white, center);
-  display: flex;
-  box-sizing: border-box;
-  box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
-  width: 100%;
-  max-width:45rem;
-  border: 2px solid white;
-  border-radius: var(--border-radius);
-  padding: 0.25em 2.14em;
-  text-decoration: none;
-  background: rgba(199, 193, 193, 0.75);
-  justify-content: center;
-}
-
 
 p {
   @include layout-display(flex, row, unset, center);

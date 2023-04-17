@@ -23,3 +23,7 @@ img {
   text-decoration:none;
   @include font-header(white,left);
 }
+
+.is-opacity-0 {
+  opacity:0;
+}

@@ -1,0 +1,35 @@
+@import "./../../styles/_mixins";
+
+a {
+  @include font-button(white, center);
+  display: flex;
+  box-sizing: border-box;
+  box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  padding: 0.25em 0;
+  text-decoration: none;
+  background: rgba(199, 193, 193, 0.75);
+  justify-content: center;
+  width: 45rem;
+}
+
+a:hover {
+  background: #7e7b7b;
+}
+
+@media screen and (max-width: 600px) {
+  a {
+    width: 30rem;
+  }
+}
+
+img {
+  display: none;
+}
+
+a:hover img {
+  display: flex;
+  width: 5.1rem;
+  aspect-ratio: 1/1;
+}

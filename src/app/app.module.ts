@@ -11,6 +11,7 @@ import { WebdocModule } from './webdoc/webdoc.module';
 import { HomeComponent } from './home/home.component';
 import { IntroComponent } from './intro/intro.component';
 import { HeaderComponent } from './header/header.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
     HomeComponent,
     IntroComponent,
     HeaderComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,
