@@ -1,0 +1,142 @@
+@import "./../../styles/_mixins";
+
+// =====================================================================
+// 0. LAYOUT
+// =====================================================================
+
+.main {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.wrapper {
+  @include layout-display(flex, column);
+  position: relative;
+  height: 100%;
+}
+
+.background {
+  @include layout-position(absolute, 0, unset, unset, 0);
+  @include esthetic-background(unset, unset);
+}
+
+.background--cepia {
+  z-index: 3;
+  background: rgba(171, 79, 79, 0.2);
+}
+
+.background--gradient {
+  z-index: 4;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 49.79%,
+    rgba(0, 0, 0, 0.1797) 60.73%,
+    #0b0415 88.02%
+  );
+}
+
+.video__wrapper {
+  @include layout-position(absolute, 0, unset, unset, 0);
+  @include layout-display(flex, column, center, center);
+  border: none;
+  height: 100%;
+  width: 100%;
+  background: black;
+  text-align: center;
+  margin: 0;
+}
+
+// =====================================================================
+// 1. VIDEO
+// =====================================================================
+
+// shammas-player {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+//   object-fit: cover;
+// }
+
+video {
+  @include layout-position(absolute, unset, unset, 0, unset);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+// =====================================================================
+// 2. CONTENT
+// =====================================================================
+
+.content {
+  @include layout-display(grid, unset, center, center);
+  z-index: 5;
+  position: relative;
+  box-sizing: border-box;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+  width: 100%;
+  padding: 0 5%;
+}
+
+.content__wrapper {
+  @include layout-display(flex, column, center, center, 2rem);
+}
+
+.buttons {
+  @include layout-display(flex, row, center, unset, 2rem);
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+a {
+  @include font-button(white, center);
+  display: flex;
+  box-sizing: border-box;
+  padding: 0.25em 2.14em;
+  text-decoration: none;
+  background: rgba(240, 240, 240, 0.2);
+  border: 2px solid white;
+  border-radius: 5rem;
+}
+
+p {
+  @include layout-display(flex, row, unset, center);
+  @include font-paragraph--showcase(white, center);
+  margin: 0;
+  max-width: 110ch;
+}
+
+h1 {
+  @include font-h1(white, center);
+  @include layout-display(flex, row, center, center);
+  margin: 0;
+}
+
+.play {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+// =====================================================================
+// 3. LOGO
+// =====================================================================
+
+.logo__wrapper {
+  @include layout-display(flex, row, space-between);
+  box-sizing: border-box;
+  height: 100%;
+  bottom: 0;
+  width: 100%;
+  margin: 2rem 0;
+  gap: 10%;
+}
+
+.logo__wrapper {
+  max-height: 60%;
+}

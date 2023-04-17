@@ -7,14 +7,16 @@ import { APIInterceptorService } from './services/api-interceptor.service';
 import { HttpService } from './services/http.service';
 import { SdgListComponent } from './sdg-list/sdg-list.component';
 import { SdgCardComponent } from './sdg-card/sdg-card.component';
-import { IntroComponent } from './intro/intro.component';
 import { WebdocModule } from './webdoc/webdoc.module';
+import { HomeComponent } from './home/home.component';
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SdgListComponent,
     SdgCardComponent,
+    HomeComponent,
     IntroComponent,
   ],
   imports: [
