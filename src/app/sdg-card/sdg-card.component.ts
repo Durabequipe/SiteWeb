@@ -21,7 +21,7 @@ export class SdgCardComponent implements OnInit {
 
   ngOnInit() {
     if (this.project?.videos || false) {
-      this.video = this.project?.videos[0].paths[0];
+      this.video = this.project?.videos[0]?.paths[0];
     }
   }
 
@@ -36,6 +36,6 @@ export class SdgCardComponent implements OnInit {
   buildUrl() {
     return this.project?.isActive
       ? '/webdoc/' + this.project?.description
-      : '#';
+      : '/sdg-list';
   }
 }

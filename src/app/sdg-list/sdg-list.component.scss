@@ -17,7 +17,7 @@
   gap: calc(2rem + var(--card-border-width) + var(--card-border-width));
   height: -webkit-fill-available;
   padding: 0 5% 2rem 5%;
-  overflow: hidden;
+  overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   z-index: 5;

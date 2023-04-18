@@ -30,6 +30,7 @@ export class PlayerComponent implements OnInit {
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
+    console.log(project)
   }
 
   ngOnInit() {

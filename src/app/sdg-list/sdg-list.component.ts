@@ -3,8 +3,6 @@ import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
 import { percentageBetween } from '../lib/utils';
 
-const MIN_DESKTOP_WIDTH = 1000;
-
 @Component({
   selector: 'app-sdg-list',
   templateUrl: './sdg-list.component.html',
@@ -24,27 +22,6 @@ export class SdgListComponent implements OnInit {
       projects.push({} as Project);
     } */
     this.projects = projects;
-    window.addEventListener('resize', () => {
-      this.setOverflow();
-    });
-  }
-
-  onMouseMove(e: MouseEvent) {
-    if (this.cardsWrapper) {
-      const windowPosition = percentageBetween(e.x, 0, screen.width);
-      const scrollWidth = this.cardsWrapper.scrollWidth;
-      this.cardsWrapper.scrollLeft =
-        (windowPosition * scrollWidth) / 100 - screen.width / 2;
-    }
-  }
-
-  setOverflow() {
-    if (this.cardsWrapper) {
-      const isDesktop = screen.width > MIN_DESKTOP_WIDTH;
-      isDesktop
-        ? (this.cardsWrapper.style.overflow = 'hidden')
-        : (this.cardsWrapper.style.overflow = 'scroll');
-    }
   }
 
   async fetchProject() {
@@ -85,7 +62,6 @@ export class SdgListComponent implements OnInit {
     this.fetchProject();
     const cards = document.querySelector('.cards') as HTMLElement;
     this.cardsWrapper = cards;
-    this.setOverflow();
     setTimeout(() => {
       if (cards) {
         cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;
