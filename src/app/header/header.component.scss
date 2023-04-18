@@ -18,6 +18,12 @@ img {
   margin: auto;
 }
 
+a {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
 .title {
   grid-column:1/12;
   text-decoration:none;
