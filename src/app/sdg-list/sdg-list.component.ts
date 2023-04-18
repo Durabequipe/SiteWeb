@@ -78,7 +78,7 @@ export class SdgListComponent implements OnInit {
   }
 
   setImage(image: string) {
-    this.backgroundImage = `background-image:url('${image}'); background-size: cover; background-position: center; background-repeat: no-repeat;`;
+    this.backgroundImage = `background-image:url('${image}'); background-size: cover; background-position: center; background-repeat: no-repeat;transition: all 0.4s ease-in-out 0s;`;
   }
 
   ngOnInit(): void {

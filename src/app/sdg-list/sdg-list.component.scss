@@ -20,6 +20,7 @@
   overflow: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  z-index: 5;
 }
 
 .cards::-webkit-scrollbar {
@@ -49,4 +50,24 @@ h1 {
   @include font-h1(white, left);
   @include layout-display(flex, row, unset, center);
   margin-left: 5%;
+}
+
+.background {
+  @include layout-position(absolute, 0, unset, unset, 0);
+  @include esthetic-background(unset, unset);
+}
+
+.background--cepia {
+  z-index: 3;
+  background: rgba(171, 79, 79, 0.2);
+}
+
+.background--gradient {
+  z-index: 4;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 49.79%,
+    rgba(0, 0, 0, 0.1797) 60.73%,
+    #0b0415 88.02%
+  );
 }
