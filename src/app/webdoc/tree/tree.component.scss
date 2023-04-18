@@ -1,10 +1,10 @@
 @import "../../../styles/mixins";
 
 .wrapper {
-  @include layout-display(flex, column, unset, center);
+ @include layout-display(flex, column, unset, start);
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 #tooltip {
@@ -23,4 +23,30 @@
   border-radius: 0 !important;
   width: 100%;
   height: 10%;
+}
+
+
+.image-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.image-background-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FF3A21;
+  opacity: 0.1;
+}
+
+.heading {
+  @include font-h1(white, center);
+  margin: 20px;
+  font-size: 2rem;
 }
