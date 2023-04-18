@@ -1,5 +1,5 @@
 <a
-  routerLink="{{ '/webdoc/' + project?.description }}"
+  routerLink="{{ buildUrl() }}"
   [state]="{project}"
   routerLinkActive="active"
   class="card"
@@ -7,4 +7,6 @@
   style="{{ setImage() }}"
 >
   <h1>{{ project?.name }}</h1>
+
+  <span *ngIf="!project?.isActive" class="icon-cone"></span>
 </a>

@@ -1,14 +1,23 @@
-<div class="wrapper" style="{{backgroundImage}}" (mousemove)="onMouseMove($event)">
+<div
+  class="wrapper"
+  style="{{ backgroundImage }}"
+  (mousemove)="onMouseMove($event)"
+>
+  <div _ngcontent-tym-c3="" class="background background--gradient"></div>
   <div class="sdg-content">
-    <h1>{{currentProject?.name}}</h1>
+    <h1>{{ currentProject?.name }}</h1>
     <div class="sdg-number">
       <span>
         {{ currentProject?.description }}
       </span>
     </div>
   </div>
-  <div class="cards" >
-    <app-sdg-card (cardIsHover)="onCardIsHover($event)" *ngFor="let project of projects; index as i" [project]="project"
-      [sdgNumber]="i"></app-sdg-card>
+  <div class="cards">
+    <app-sdg-card
+      (cardIsHover)="onCardIsHover($event)"
+      *ngFor="let project of projects; index as i"
+      [project]="project"
+      [sdgNumber]="i"
+    ></app-sdg-card>
   </div>
 </div>

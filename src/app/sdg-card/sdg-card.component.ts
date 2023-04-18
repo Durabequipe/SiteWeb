@@ -32,4 +32,10 @@ export class SdgCardComponent implements OnInit {
       return '';
     }
   }
+
+  buildUrl() {
+    return this.project?.isActive
+      ? '/webdoc/' + this.project?.description
+      : '#';
+  }
 }
