@@ -1,0 +1,14 @@
+<app-navigation position="top">
+  <div left>
+    <app-button link="/" text="Durabilia"></app-button>
+  </div>
+  <div right>
+    <app-button [externalLink]="true" link="https://durabilia.ch/" img="controller" type="square"></app-button>
+  </div>
+</app-navigation>
+<app-navigation position="bottom">
+  <div right>
+    <app-button link="/sdg-list" img="skipForward" type="square"></app-button>
+  </div>
+</app-navigation>
+<shammas-player (shammas-video-end)="onVideoEnd()"></shammas-player>

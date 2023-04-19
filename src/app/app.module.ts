@@ -9,7 +9,7 @@ import { SdgListComponent } from './sdg-list/sdg-list.component';
 import { SdgCardComponent } from './sdg-card/sdg-card.component';
 import { WebdocModule } from './webdoc/webdoc.module';
 import { HomeComponent } from './home/home.component';
-import { IntroComponent } from './intro/intro.component';
+import {SingleVideoComponent} from './singleVideo/singleVideo.component'
 import { ButtonComponent } from './button/button.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
@@ -19,15 +19,15 @@ import { NavigationComponent } from './navigation/navigation.component';
     SdgListComponent,
     SdgCardComponent,
     HomeComponent,
-    IntroComponent,
-    NavigationComponent,
-    ButtonComponent,
+    SingleVideoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    WebdocModule
+    WebdocModule,
+    NavigationComponent,
+    ButtonComponent,
   ],
   providers: [
     {

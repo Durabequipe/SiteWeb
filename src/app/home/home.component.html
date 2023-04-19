@@ -1,14 +1,23 @@
 <div class="main">
-  <app-navigation [showTitle]="false">
-    <h1 class="title" left >Durabilia</h1>
+
+  <!--========================>
+  <--- NAVIGATION 
+  <=========================-->
+  <app-navigation>
+    <div left>
+      <app-button link="/" text="Durabilia"></app-button>
+    </div>
     <div right>
       <app-button [externalLink]="true" link="https://durabilia.ch/" img="controller" type="square"></app-button>
     </div>
   </app-navigation>
+
   <div class="wrapper">
     <div class="video__wrapper">
+
       <div class="background background--gradient"></div>
       <div class="background background--cepia"></div>
+
       <video width="100%" loop autoplay>
         <source type="video/mp4"
           src="https://admin.durabilia.tarrit.ch/storage/videos/Gqzlr7WlPJIstmwW6ECrRjArrUbttt-metaMDEubXA0-.mp4">
@@ -18,6 +27,9 @@
       <div class="content">
         <div> </div>
 
+        <!--========================>
+        <--- CONTENTS 
+        <=========================-->
         <div class="content__wrapper">
           <h1><span>Durabilia</span></h1>
           <p>Une plateforme composée de vidéos interactives qui permettent
@@ -27,11 +39,15 @@
           </div>
         </div>
 
+        <!--========================>
+        <--- LOGOS 
+        <=========================-->
         <div class="logo__wrapper">
           <img src="assets/heig.logo.svg" alt="Haute Ecole d'ingénierie et de Gestion logo">
           <img src="assets/sdg.logo.png" alt="Sustainable Developement Goals logo">
           <img src="assets/mei.logo.svg" alt="Media Engineering Institute logo">
         </div>
+
       </div>
 
     </div>

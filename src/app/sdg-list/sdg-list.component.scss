@@ -52,6 +52,7 @@ app-navigation {
   .cards {
     display: grid;
     margin-top: 50vh;
+    overflow:hidden;
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -62,6 +63,7 @@ app-navigation {
 
 .sdg-content {
   @include layout-display(flex, row, unset, center);
+  z-index: 4;
   max-width: 66%;
 }
 

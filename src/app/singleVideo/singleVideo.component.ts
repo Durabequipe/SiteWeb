@@ -8,11 +8,11 @@ import {
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-intro',
-  templateUrl: './intro.component.html',
-  styleUrls: ['./intro.component.scss'],
+  selector: 'app-single-video',
+  templateUrl: './singleVideo.component.html',
+  styleUrls: ['./singleVideo.component.scss'],
 })
-export class IntroComponent implements OnInit {
+export class SingleVideoComponent implements OnInit {
   private project:Project|null = null;
 
   onVideoEnd() {
