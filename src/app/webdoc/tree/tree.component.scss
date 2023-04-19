@@ -1,10 +1,10 @@
 @import "../../../styles/mixins";
 
 .wrapper {
-  @include layout-display(flex, column, unset, center);
+ @include layout-display(flex, column, unset, start);
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 #tooltip {
@@ -23,4 +23,52 @@
   border-radius: 0 !important;
   width: 100%;
   height: 10%;
+}
+
+
+.image-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.image-background-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FF3A21;
+  opacity: 0.1;
+}
+
+.heading {
+  @include font-h1(white, center);
+  margin: 20px;
+  font-size: 2rem;
+}
+
+#finish-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 3rem;
+  left: calc(50% - 10rem);
+  width: 20rem;
+  height: 5rem;
+  background-color: #9e9e9eac;
+  border-radius: 8px;
+  box-shadow: 6px 4px 6px 0px rgba(0, 0, 0, 0.6); 
+}
+
+#finish-button span {
+  @include font-style(white, center);
+  opacity: 1;
+  font-weight: 700;
+  text-transform: uppercase;
 }

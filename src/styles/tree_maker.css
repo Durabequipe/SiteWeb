@@ -13,17 +13,21 @@
 
 .tree__container__step__card p {
   padding: 10px;
-  box-shadow: 0 0 4px 1px rgba(121, 121, 121, 0.3);
+  box-shadow: 6px 4px 6px 0px rgba(0, 0, 0, 0.6);
   border-radius: 4px;
   text-align: center;
   width: 150px;
   display: inline-block;
   margin: 0 !important;
+  font-family: "M plus 1p";
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 #tree__svg-container {
-  z-index: -1;
+  z-index: 6;
   position: absolute;
+  width: 100%;
 }
 
 .tree__container__step {

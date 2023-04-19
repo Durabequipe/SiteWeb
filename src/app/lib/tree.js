@@ -31,6 +31,9 @@ export default function treeMaker(tree, params) {
     "svg"
   );
   svgContainer.id = "tree__svg-container__svg";
+  const arrow = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+  arrow.innerHTML = `<marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">`;
+  svgContainer.appendChild(arrow);
   svgDiv.appendChild(svgContainer);
 
   // html part
@@ -206,6 +209,8 @@ function drawPath(svg, path, startX, startY, endX, endY) {
       " V" +
       endY
   );
+
+  path.setAttribute("marker-end", "url(#arrow)");
 }
 
 function connectElements(svg, path, startElem, endElem) {
