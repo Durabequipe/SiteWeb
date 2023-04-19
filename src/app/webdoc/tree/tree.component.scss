@@ -50,3 +50,25 @@
   margin: 20px;
   font-size: 2rem;
 }
+
+#finish-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 3rem;
+  left: calc(50% - 10rem);
+  width: 20rem;
+  height: 5rem;
+  background-color: #9e9e9eac;
+  border-radius: 8px;
+  box-shadow: 6px 4px 6px 0px rgba(0, 0, 0, 0.6); 
+}
+
+#finish-button span {
+  @include font-style(white, center);
+  opacity: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+}

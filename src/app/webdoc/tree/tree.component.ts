@@ -169,8 +169,8 @@ export class TreeComponent implements AfterContentInit {
     return isAlreadyWatched
       ? { background: 'red', opacity: '1', color: 'white' }
       : {
-          background: '#9E9E9E',
-          opacity: '0.75',
+          background: '#9E9E9EA8',
+          opacity: '1',
           color: 'white',
         };
   }

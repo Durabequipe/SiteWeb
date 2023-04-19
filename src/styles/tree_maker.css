@@ -21,11 +21,13 @@
   margin: 0 !important;
   font-family: "M plus 1p";
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 #tree__svg-container {
   z-index: 6;
   position: absolute;
+  width: 100%;
 }
 
 .tree__container__step {
