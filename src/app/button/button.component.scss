@@ -1,11 +1,9 @@
 @import "./../../styles/_mixins";
 
-
 a {
   @include font-button(white, center);
   display: flex;
   box-sizing: border-box;
-  z-index: 5;
   width: 45rem;
   box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
   border: 2px solid white;
@@ -14,6 +12,7 @@ a {
   text-decoration: none;
   background: rgba(199, 193, 193, 0.75);
   justify-content: center;
+  align-items: center;
 }
 
 .icon {
@@ -31,6 +30,7 @@ a:hover {
 }
 
 .square {
+  aspect-ratio: 1/1;
   border-radius: 0;
   box-shadow: none;
   border: none;
@@ -53,28 +53,4 @@ a:hover {
 
 a:hover .icon {
   display: flex;
-}
-
-$position: 4rem;
-a.top-right {
-  position: absolute;
-  top: $position;
-  right: $position;
-}
-a.top-left {
-  position: absolute;
-  top: $position;
-  left: $position;
-}
-
-a.bottom-left {
-  position: absolute;
-  bottom: $position;
-  left: $position;
-}
-
-a.bottom-right {
-  position: absolute;
-  bottom: $position;
-  right: $position;
 }

@@ -1,11 +1,17 @@
 <div class="main">
-  <app-header [showTitle]="false"></app-header>
+  <app-navigation [showTitle]="false">
+    <h1 class="title" left >Durabilia</h1>
+    <div right>
+      <app-button [externalLink]="true" link="https://durabilia.ch/" img="controller" type="square"></app-button>
+    </div>
+  </app-navigation>
   <div class="wrapper">
     <div class="video__wrapper">
       <div class="background background--gradient"></div>
       <div class="background background--cepia"></div>
-      <video width="100%" loop  autoplay >
-        <source type="video/mp4" src="https://durabequipe.tarrit.ch/storage/videos/Gqzlr7WlPJIstmwW6ECrRjArrUbttt-metaMDEubXA0-.mp4">
+      <video width="100%" loop autoplay>
+        <source type="video/mp4"
+          src="https://admin.durabilia.tarrit.ch/storage/videos/Gqzlr7WlPJIstmwW6ECrRjArrUbttt-metaMDEubXA0-.mp4">
         Your browser does not support the video tag.
       </video>
 
@@ -15,7 +21,7 @@
         <div class="content__wrapper">
           <h1><span>Durabilia</span></h1>
           <p>Une plateforme composée de vidéos interactives qui permettent
-          de découvrir les 17 Objectifs de Développement Durable</p>
+            de découvrir les 17 Objectifs de Développement Durable</p>
           <div class="buttons">
             <app-button link="/intro" text="Découvrir" type="full" img="arrowRight"></app-button>
           </div>

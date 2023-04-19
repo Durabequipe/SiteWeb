@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
-import { percentageBetween } from '../lib/utils';
 
 @Component({
   selector: 'app-sdg-list',
@@ -12,7 +11,8 @@ export class SdgListComponent implements OnInit {
   public backgroundImage = '';
   public currentProject: Project | null = null;
   public projects: Project[];
-  private cardsWrapper: HTMLElement | null = null;
+  private images: string[] = [];
+  public style = '';
 
   constructor(private api: ProjectService) {
     const projects = [] as Project[];
@@ -33,6 +33,7 @@ export class SdgListComponent implements OnInit {
         // allow to have multiple project to show
         //for (let i = 0; i < 8; i++) {
         newProjects.push(project);
+        this.images.push(project.coverImage);
         //}
         // console.log({ project });
       }
@@ -45,6 +46,36 @@ export class SdgListComponent implements OnInit {
     const newProject: Project = project as Project;
     this.currentProject = newProject;
     this.setImage(newProject.coverImage);
+    this.setBackgroundStyle();
+  }
+
+  setBackgroundStyle() {
+    const gradient = document.querySelector(
+      '.background.background--gradient'
+    ) as HTMLElement;
+    let i = 0;
+    const getStyle = (url: string) => {
+      return `
+          background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 49.79%,
+            rgba(0, 0, 0, 0.1797) 60.73%,
+            #0b0415 88.02%
+          ),
+          url("${url}");
+          `;
+    };
+
+    this.style = getStyle(this.images[0]);
+
+    const func = () => {
+      if (window.innerWidth < 800 && gradient) {
+        i++;
+        if (this.images.length - 1 < i) i = 0;
+        this.style = getStyle(this.images[i]);
+      }
+    };
+    setInterval(func, 4000);
   }
 
   onCardIsHover(project: Project | null) {
@@ -61,7 +92,6 @@ export class SdgListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchProject();
     const cards = document.querySelector('.cards') as HTMLElement;
-    this.cardsWrapper = cards;
     setTimeout(() => {
       if (cards) {
         cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;

@@ -18,6 +18,14 @@
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
 }
 
+@mixin font-mobile-sdg-number($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-weight: 900;
+  font-size: 9.6rem;
+  line-height: 10rem;
+  text-transform: uppercase;
+}
+
 @mixin font-header($color, $text-align) {
   @include font-style($color, $text-align);
   font-weight: 900;

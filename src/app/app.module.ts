@@ -10,8 +10,8 @@ import { SdgCardComponent } from './sdg-card/sdg-card.component';
 import { WebdocModule } from './webdoc/webdoc.module';
 import { HomeComponent } from './home/home.component';
 import { IntroComponent } from './intro/intro.component';
-import { HeaderComponent } from './header/header.component';
 import { ButtonComponent } from './button/button.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { ButtonComponent } from './button/button.component';
     SdgCardComponent,
     HomeComponent,
     IntroComponent,
-    HeaderComponent,
+    NavigationComponent,
     ButtonComponent,
   ],
   imports: [

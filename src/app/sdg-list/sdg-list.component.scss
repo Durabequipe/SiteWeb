@@ -4,12 +4,18 @@
   @include layout-display(grid, column);
   height: 100%;
   grid-template-rows: 60% 40%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.1797) 58.58%,
     #0b0415 88.02%
   );
+}
+
+app-navigation {
+  display: none;
 }
 
 .cards {
@@ -21,6 +27,33 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   z-index: 5;
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    background-image: unset !important;
+    background: black;
+    height: fit-content;
+    grid-template-rows: unset;
+  }
+
+  app-navigation {
+    display: flex;
+  }
+
+  .title {
+    @include font-header(white, left);
+  }
+
+  .sdg-content {
+    display: none !important;
+  }
+
+  .cards {
+    display: grid;
+    margin-top: 50vh;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .cards::-webkit-scrollbar {

@@ -1,3 +1,11 @@
-<a routerLink="{{link}}" class="{{getClass()}}">
+<a *ngIf="link && !externalLink" routerLink="{{link}}" class="{{getClass()}}">
   <span>{{text}}</span><span class="{{getImgClass()}}"></span>
 </a>
+
+<a *ngIf="link && externalLink" href="{{link}}" class="{{getClass()}}">
+  <span>{{text}}</span><span class="{{getImgClass()}}"></span>
+</a>
+
+<button *ngIf="!link" (click)="onClick()">
+  <span>{{text}}</span><span class="{{getImgClass()}}"></span>
+</button>

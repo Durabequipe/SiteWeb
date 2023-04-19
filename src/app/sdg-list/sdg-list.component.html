@@ -1,8 +1,13 @@
-<div
-  class="wrapper"
-  style="{{ backgroundImage }}"
->
-  <div _ngcontent-tym-c3="" class="background background--gradient"></div>
+<app-navigation [showTitle]="false">
+  <h1 class="title" left>Durabilia</h1>
+  <div right>
+    <app-button [externalLink]="true" link="https://durabilia.ch/" img="controller" type="square"></app-button>
+  </div>
+</app-navigation>
+
+<div class="wrapper" style="{{ backgroundImage }}">
+  <div _ngcontent-tym-c3="" style="{{style}}" class="background background--gradient"></div>
+
   <div class="sdg-content">
     <h1>{{ currentProject?.name }}</h1>
     <div class="sdg-number">
@@ -11,12 +16,10 @@
       </span>
     </div>
   </div>
+
   <div class="cards">
-    <app-sdg-card
-      (cardIsHover)="onCardIsHover($event)"
-      *ngFor="let project of projects; index as i"
-      [project]="project"
-      [sdgNumber]="i"
-    ></app-sdg-card>
+    <app-sdg-card (cardIsHover)="onCardIsHover($event)" *ngFor="let project of projects; index as i" [project]="project"
+      [sdgNumber]="i"></app-sdg-card>
   </div>
+
 </div>

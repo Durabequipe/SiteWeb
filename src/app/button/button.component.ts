@@ -10,12 +10,8 @@ export class ButtonComponent {
   @Input() img?: string;
   @Input() link = '';
   @Input() type: 'full' | 'square' | '' = '';
-  @Input() position?:
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | '' = '';
+  @Input() callback?: () => void;
+  @Input() externalLink? = false;
 
   getImgClass() {
     if (this.img) {
@@ -25,6 +21,12 @@ export class ButtonComponent {
   }
 
   getClass() {
-    return `${this.type} ${this.position}`;
+    return `${this.type}`;
+  }
+
+  onClick() {
+    if (this.callback) {
+      this.callback();
+    }
   }
 }

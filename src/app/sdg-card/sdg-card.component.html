@@ -7,6 +7,7 @@
   style="{{ setImage() }}"
 >
   <h1>{{ project?.name }}</h1>
+  <div class="sdg-number">{{ project?.description }}</div>
 
   <span *ngIf="!project?.isActive" class="icon-cone"></span>
 </a>

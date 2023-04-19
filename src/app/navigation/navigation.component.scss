@@ -1,0 +1,35 @@
+@import "../../styles/mixins";
+
+.navigation.wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--column-gap);
+  position: absolute;
+  width: calc(100% - 2 * var(--column-gap));
+  justify-content: space-between;
+  padding: 0 var(--column-gap);
+  align-items: center;
+}
+
+.navigation.wrapper--top {
+  top: 0;
+}
+
+.navigation.wrapper--bottom {
+  bottom: 2rem;
+}
+
+.navigation *[left] {
+  grid-column: 1/2;
+}
+
+.navigation *[middle] {
+  grid-column: 5/9;
+}
+
+.navigation *[right] {
+  grid-column: 12/13;
+}
+
+
+
