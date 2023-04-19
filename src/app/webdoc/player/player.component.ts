@@ -19,7 +19,6 @@ type LocationData = {
 export class PlayerComponent implements OnInit {
   public project: Project | null;
   private projectId: string;
-  public watchedSequenceIds: string[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -30,7 +29,7 @@ export class PlayerComponent implements OnInit {
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
-    console.log(project)
+    console.log(project);
   }
 
   ngOnInit() {

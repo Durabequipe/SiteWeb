@@ -14,7 +14,6 @@ import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 type LocationData = {
   navigationId: number;
   project: Project;
-  watchedSequenceIds: string[];
 };
 
 type V = VideoNode & {
@@ -51,7 +50,6 @@ export class TreeComponent implements AfterContentInit {
   public treeParams: TreeParams = {};
   public videos: Map<string, V> = new Map();
   public project: Project | null = null;
-  public watchedSequenceIds: string[] = [];
   private visitedVideoNodes = new Set();
 
   constructor(
@@ -62,7 +60,6 @@ export class TreeComponent implements AfterContentInit {
     const data = this.location.getState() as LocationData;
     console.log(data);
     this.project = data.project || null;
-    this.watchedSequenceIds = data.watchedSequenceIds || [];
     if (!this.project) {
       const sdgId = document.location.pathname.split('/')[2];
       this.fetchProject(sdgId);
