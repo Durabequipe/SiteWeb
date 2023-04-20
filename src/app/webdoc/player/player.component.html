@@ -1,17 +1,20 @@
-<!--========================>
+<div class="main">
+  <!--========================>
   <--- NAVIGATION 
   <=========================-->
-<app-navigation>
-  <div right>
-    <app-button link="/sdg-list" img="cross" type="square"></app-button>
-  </div>
-</app-navigation>
-<!--========================>
+  <app-navigation>
+    <div right>
+      <app-button link="/sdg-list" img="cross" type="square"></app-button>
+    </div>
+  </app-navigation>
+  <!--========================>
   <--- PLAYER 
   <=========================-->
-<shammas-player (shammas-sequence-started)="onSequenceStart($event)"
-  (shammas-video-end)="onVideoEnd($event)"></shammas-player>
+  <shammas-player (shammas-sequence-started)="onSequenceStart($event)"
+    (shammas-video-end)="onVideoEnd($event)"></shammas-player>
 
-<div style="display: flex; justify-content: center">
-  <a routerLink="tree" [state]="{project}" routerLinkActive="active">Tree</a>
+  <app-popup [showPopup]="showPopup"></app-popup>
+  <div style="display: flex; justify-content: center">
+    <a routerLink="tree" [state]="{project}" routerLinkActive="active">Tree</a>
+  </div>
 </div>

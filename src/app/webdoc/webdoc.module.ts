@@ -5,9 +5,10 @@ import { NavigationComponent } from '../navigation/navigation.component';
 import { PlayerRoutingModule } from './player/player-routing.module';
 import { PlayerComponent } from './player/player.component';
 import { TreeComponent } from './tree/tree.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
-  declarations: [PlayerComponent, TreeComponent],
+  declarations: [PlayerComponent, TreeComponent, PopupComponent],
   imports: [
     CommonModule,
     PlayerRoutingModule,

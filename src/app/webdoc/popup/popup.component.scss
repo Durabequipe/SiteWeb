@@ -1,0 +1,67 @@
+@import "../../../styles/mixins";
+
+#popup__wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  background: transparent;
+  display: flex;
+  z-index: 100;
+  background: red;
+  transition: all 1s ease-out;
+}
+
+#popup__wrapper .buttons {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#popup__wrapper a {
+  font-family: "Mplus 1p", sans-serif;
+  color: white;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #101010;
+  text-decoration: none;
+}
+
+#popup__wrapper a:first-child {
+  border-right: 5px solid white;
+}
+
+#popup__wrapper a:hover {
+  background: red;
+}
+
+#popup__wrapper a div {
+  text-align: center;
+}
+
+.text {
+  @include font-popup(white, center);
+}
+
+@media (orientation: portrait) {
+  #popup__wrapper a {
+    border-bottom: 5px solid white;
+  }
+
+  .buttons {
+    flex-direction: column;
+    background: blue;
+  }
+}
+
+.show {
+  bottom: 0;
+}
+
+.hide {
+  bottom: -100%;
+}

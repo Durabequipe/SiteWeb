@@ -19,6 +19,7 @@ type LocationData = {
 export class PlayerComponent implements OnInit {
   public project: Project | null;
   private projectId: string;
+  public showPopup = false;
 
   constructor(
     private projectService: ProjectService,
@@ -46,6 +47,11 @@ export class PlayerComponent implements OnInit {
 
   onVideoEnd(e: any) {
     console.log(e);
+    this.setPopup(true);
+  }
+
+  setPopup(value: boolean) {
+    this.showPopup = value;
   }
 
   async setAndInitProject() {

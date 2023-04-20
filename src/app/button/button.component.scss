@@ -13,12 +13,6 @@ a:hover {
   color: var(--secondary-color-hex);
 }
 
-@media screen and (max-width: 600px) {
-  a {
-    width: 30rem;
-  }
-}
-
 .icon {
   font-size: 5.1rem;
   @include layout-display(flex, row, center, center);
@@ -36,12 +30,18 @@ a.full {
 .full {
   box-sizing: border-box;
   @include layout-display(flex, row, center, center);
-  width: 45rem;
   box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
+  width: 45rem;
   border: 2px solid white;
   border-radius: var(--border-radius);
   padding: 0.25em 0;
   background: rgba(199, 193, 193, 0.75);
+}
+
+@media screen and (max-width: 600px) {
+  .full {
+    width: 30rem;
+  }
 }
 
 .full .icon {

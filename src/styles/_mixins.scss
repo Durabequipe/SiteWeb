@@ -73,6 +73,22 @@
   text-transform: uppercase;
 }
 
+@mixin font-popup($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-weight: 500;
+  font-size: 50rem;
+  font-size: 3.2rem;
+  line-height: 150%;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.011em;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
 // =====================================================================
 // 1. LAYOUT
 // =====================================================================
