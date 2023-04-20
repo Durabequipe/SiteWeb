@@ -12,5 +12,6 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  public videoPath = 'https://admin.durabilia.tarrit.ch/storage/videos/standalones/desktop/home.mp4'
   constructor(private projectService: ProjectService) {}
 }

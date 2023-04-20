@@ -7,8 +7,11 @@
   </div>
 </app-navigation>
 <app-navigation position="bottom">
-  <div right>
+  <div *ngIf="type=='intro'" right>
     <app-button link="/sdg-list" img="skipForward" type="square"></app-button>
+  </div>
+  <div *ngIf="type=='conclusion'" middle>
+    <app-button link="/sdg-list"  text="aller aux chapitres" type="full"></app-button>
   </div>
 </app-navigation>
 <shammas-player (shammas-video-end)="onVideoEnd()"></shammas-player>

@@ -1,7 +1,6 @@
 import {
   Component,
   AfterContentInit,
-  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import treeMaker from '../../lib/tree';
 import { Tree, TreeParams } from '../../models/treemaker';

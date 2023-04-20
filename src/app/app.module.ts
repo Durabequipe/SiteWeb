@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import {SingleVideoComponent} from './singleVideo/singleVideo.component'
 import { ButtonComponent } from './button/button.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { IntroComponent } from './intro/intro.component';
+import { ConclusionComponent } from './conclusion/conclusion.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     SdgCardComponent,
     HomeComponent,
     SingleVideoComponent,
+    IntroComponent,
+    ConclusionComponent,
   ],
   imports: [
     BrowserModule,

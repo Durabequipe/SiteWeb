@@ -9,6 +9,7 @@
   justify-content: space-between;
   padding: 0 var(--column-gap);
   align-items: center;
+  pointer-events: none;
 }
 
 .navigation.wrapper--top {
@@ -18,19 +19,23 @@
 
 .navigation.wrapper--bottom {
   padding-bottom: 1rem;
-  bottom: 2rem;
+  bottom: 4.5rem;
 }
 
 .navigation *[left] {
   grid-column: 1/2;
+  pointer-events: auto;
 }
 
 .navigation *[middle] {
-  grid-column: 5/9;
+  grid-column: 4/10;
+  pointer-events: auto;
+  margin:auto;
 }
 
 .navigation *[right] {
   grid-column: 12/13;
+  pointer-events: auto;
 }
 
 

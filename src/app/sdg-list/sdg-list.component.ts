@@ -66,7 +66,9 @@ export class SdgListComponent implements OnInit {
           `;
     };
 
-    this.style = getStyle(this.images[0]);
+    if (window.innerWidth < 800 && gradient) {
+      this.style = getStyle(this.images[0]);
+    }
 
     const func = () => {
       if (window.innerWidth < 800 && gradient) {

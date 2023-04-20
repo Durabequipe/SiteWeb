@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import '@shammas44/interactive-video-player';
 import {
   Player as PlayerElement,
@@ -7,46 +7,50 @@ import {
 } from '@shammas44/interactive-video-player';
 import { Router } from '@angular/router';
 
+type VideoPaths = {
+  desktop: string;
+  mobile: string;
+};
 @Component({
   selector: 'app-single-video',
   templateUrl: './singleVideo.component.html',
   styleUrls: ['./singleVideo.component.scss'],
 })
 export class SingleVideoComponent implements OnInit {
-  private project:Project|null = null;
+  @Input() type: 'intro' | 'conclusion' = 'intro';
+  @Input() videoPaths: VideoPaths | null = null;
 
   onVideoEnd() {
-    console.log('yo')
     this.router.navigate(['/sdg-list']);
   }
 
-  constructor(private router:Router) {
-    this.project  = {
-      entrypointId: '98f5aee6-d945-4cd7-96f8-45a162978406',
-      id: '98f5ab25-56d6-407e-a01a-1e56893eb029',
-      videos: [
-        {
-          id: '98f5aee6-d945-4cd7-96f8-45a162978406',
-          name: '',
-          paths: [
-            'https://admin.durabilia.tarrit.ch/storage/videos/Z6fTdvvpgkuu6yaTyVjtnPATLOx1x0-metaMDEubXA0-.mp4',
-            'https://admin.durabilia.tarrit.ch/storage/videos/5LqGcuD5w0IvDiAqZMBebFg38dDxTL-metaMDEubXA0-.mp4',
-          ],
-          animation: {
-            duration: 10,
-            position: InteractionPosition.BOTTOM,
-            title: '',
-          },
-        },
-      ],
-    };
-  }
+  constructor(private router: Router) {}
+
   ngOnInit() {
+    let project: Project | null = null;
+    if (this.videoPaths) {
+      project = {
+        entrypointId: '1',
+        id: 'standalone',
+        videos: [
+          {
+            id: '1',
+            name: '',
+            paths: [this.videoPaths.desktop, this.videoPaths.mobile],
+            animation: {
+              duration: 0,
+              position: InteractionPosition.BOTTOM,
+              title: '',
+            },
+          },
+        ],
+      };
+    }
+
     const player: PlayerElement | null =
       document.querySelector('shammas-player');
-    if (player != null) {
-      console.log(player);
-      player.initProject(this.project as Project);
+    if (player && project) {
+      player.initProject(project);
     }
   }
 }
