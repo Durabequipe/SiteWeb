@@ -8,7 +8,6 @@
   background: transparent;
   display: flex;
   z-index: 100;
-  background: red;
   transition: all 1s ease-out;
 }
 
@@ -36,7 +35,7 @@
 }
 
 #popup__wrapper a:hover {
-  background: red;
+  background: var(--current-sdg-color);
 }
 
 #popup__wrapper a div {
@@ -54,7 +53,6 @@
 
   .buttons {
     flex-direction: column;
-    background: blue;
   }
 }
 

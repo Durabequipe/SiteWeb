@@ -30,7 +30,14 @@ export class PlayerComponent implements OnInit {
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
-    console.log(project);
+    this.setSdgColor(projectId)
+  }
+
+  setSdgColor(id: string) {
+    document.documentElement.style.setProperty(
+      '--current-sdg-color',
+      `var(--sdg${id}-color)`
+    );
   }
 
   ngOnInit() {
