@@ -89,6 +89,16 @@
   flex-grow: 0;
 }
 
+@mixin font-question($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-family: "M plus 1p";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 3rem;
+  letter-spacing: -0.011em;
+}
+
 // =====================================================================
 // 1. LAYOUT
 // =====================================================================

@@ -13,9 +13,10 @@ export class ButtonComponent {
   @Input() text = '';
   @Input() img?: string;
   @Input() link = '';
-  @Input() type: 'full' | 'square' | '' = '';
+  @Input() type: 'full' | 'full-sm'| 'square' | '' = '';
   @Input() callback?: () => void;
   @Input() externalLink? = false;
+  @Input() color? = '';
 
 
   getImgClass() {

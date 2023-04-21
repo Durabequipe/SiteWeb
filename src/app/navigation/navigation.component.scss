@@ -2,7 +2,7 @@
 
 .navigation.wrapper {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: auto auto auto;
   gap: var(--column-gap);
   position: absolute;
   width: calc(100% - 2 * var(--column-gap));
@@ -23,18 +23,20 @@
 }
 
 .navigation *[left] {
+  align-self:flex-start;
   grid-column: 1/2;
   pointer-events: auto;
 }
 
 .navigation *[middle] {
-  grid-column: 4/10;
+  grid-column: 2/3;
   pointer-events: auto;
   margin:auto;
 }
 
 .navigation *[right] {
-  grid-column: 12/13;
+  align-self:flex-end;
+  grid-column: 3/4;
   pointer-events: auto;
 }
 

@@ -1,6 +1,8 @@
 @import "./../../styles/_mixins";
 
 a {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   @include font-header(white, left);
 }
@@ -18,16 +20,39 @@ a:hover {
   @include layout-display(flex, row, center, center);
 }
 
-a.square,
-a.full {
+.square,
+.full,
+.full-sm {
   @include font-button(white, center);
+}
+
+.title {
+  @include font-header(white, left);
+  background: transparent;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
+  border: none;
+}
+
+.text {
+  order: -1;
+}
+
+.icon-controller + span {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  padding-right: 1rem;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 // =====================================================================
 // 0. FULL
 // =====================================================================
 
-.full {
+.full,
+.full-sm {
   box-sizing: border-box;
   @include layout-display(flex, row, center, center);
   box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
@@ -38,17 +63,24 @@ a.full {
   background: rgba(199, 193, 193, 0.75);
 }
 
-@media screen and (max-width: 600px) {
+.full-sm {
+  padding: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .full-sm,
   .full {
     width: 30rem;
   }
 }
 
-.full .icon {
+.full .icon,
+.full-sm .icons {
   display: none;
 }
 
-.full:hover {
+.full:hover,
+.full-sm:hover {
   background: #7e7b7b;
   color: white;
 }

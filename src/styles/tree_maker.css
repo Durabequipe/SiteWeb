@@ -11,23 +11,37 @@
   margin: 20px;
 }
 
+.tree__container__step__card p:hover {
+  border: 8px solid white;
+}
+
+#tree__container>.tree__container__step__card >p:hover {
+  border: 8px solid transparent;
+}
+
 .tree__container__step__card p {
-  padding: 10px;
-  box-shadow: 6px 4px 6px 0px rgba(0, 0, 0, 0.6);
-  border-radius: 4px;
+  padding: 30px;
+  /* aspect-ratio:1/1; */
+  box-shadow: 6px 4px 6px rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
   text-align: center;
-  width: 150px;
+  /* width: 150px; */
+  word-wrap: break-word;
   display: inline-block;
   margin: 0 !important;
   font-family: "M plus 1p";
-  font-weight: 700;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 24px;
   text-transform: uppercase;
+  color: #ffffff;
+  border: 8px solid transparent;
 }
 
 #tree__svg-container {
-  z-index: 6;
+  z-index: -1;
   position: absolute;
-  width: 100%;
 }
 
 .tree__container__step {

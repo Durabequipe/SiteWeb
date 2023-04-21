@@ -2,10 +2,29 @@
 <span class="image-background-overlay"></span>
 
 <div class="wrapper">
-  <h1 class="heading">{{ project?.name }}</h1>
-
   <div id="tree"></div>
-  <button id="finish-button">
-    <span>Terminer</span>
-  </button>
+  <div id="tooltip">
+    <div class="close">
+    <app-button (click)="closePopup()" type='square' color="#282828" img="cross"></app-button>
+    </div>
+    <p></p>
+    <div class="follow" >
+      <button (click)="followLink()">Découvrir</button>
+    </div>
+  </div>
 </div>
+
+<app-navigation>
+  <div left>
+    <app-button text="{{project?.name}}"></app-button>
+  </div>
+  <div right>
+    <app-button text="jouer au jeu" [externalLink]="true" link="https://durabilia.ch/" img="controller"></app-button>
+  </div>
+</app-navigation>
+
+<app-navigation position="bottom">
+  <div middle>
+    <app-button link="/intro" type="full" img="arrowRight" text="terminer"></app-button>
+  </div>
+</app-navigation>

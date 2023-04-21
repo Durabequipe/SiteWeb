@@ -1,7 +1,4 @@
-import {
-  Component,
-  AfterContentInit,
-} from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 import treeMaker from '../../lib/tree';
 import { Tree, TreeParams } from '../../models/treemaker';
 import { VideoNode } from '@shammas44/interactive-video-player';
@@ -9,6 +6,7 @@ import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
 import { ProjectService } from 'src/app/services/project.service';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
+import { Router } from '@angular/router';
 
 type LocationData = {
   navigationId: number;
@@ -21,7 +19,7 @@ type V = VideoNode & {
 
 enum TooltipClass {
   displayNone = 'is-display-none',
-  displayBottom = 'tooltip--bottom',
+  displayTop = 'tooltip--top',
 }
 
 type ToolTipStyle = {
@@ -50,19 +48,30 @@ export class TreeComponent implements AfterContentInit {
   public videos: Map<string, V> = new Map();
   public project: Project | null = null;
   private visitedVideoNodes = new Set();
+  public videoId = '/';
+  private sdgId = '';
 
   constructor(
     private location: Location,
     private api: ProjectService,
-    private watchedSequenceService: WatchedSequenceService
+    private watchedSequenceService: WatchedSequenceService,
+    private router: Router
   ) {
     const data = this.location.getState() as LocationData;
     console.log(data);
     this.project = data.project || null;
+    this.sdgId = document.location.pathname.split('/')[2];
+    this.setSdgColor(this.sdgId);
     if (!this.project) {
-      const sdgId = document.location.pathname.split('/')[2];
-      this.fetchProject(sdgId);
+      this.fetchProject(this.sdgId);
     }
+  }
+
+  setSdgColor(id: string) {
+    document.documentElement.style.setProperty(
+      '--current-sdg-color',
+      `var(--sdg${id}-color)`
+    );
   }
 
   ngAfterContentInit() {
@@ -94,10 +103,12 @@ export class TreeComponent implements AfterContentInit {
 
   private getHideTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
-      const event = e as MouseEvent;
-      const [top, left] = [px(event.clientY + 20), px(event.clientX + 20)];
-      const css = { top, left, cssClass: TooltipClass.displayNone };
-      this.styleTooltip(tooltip, css);
+      if (window.innerWidth > 800) {
+        const event = e as MouseEvent;
+        const [top, left] = [px(event.clientY + 20), px(event.clientX + 20)];
+        const css = { top, left, cssClass: TooltipClass.displayNone };
+        this.styleTooltip(tooltip, css);
+      }
     };
   }
 
@@ -113,41 +124,70 @@ export class TreeComponent implements AfterContentInit {
   private getShowTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
       const event = e as MouseEvent;
+      tooltip?.classList.remove('is-display-none');
       const [x, y] = [event.clientX, event.clientY];
       const id = (e.target as HTMLElement).id.split('_')[1];
       const video = this.videos.get(id) as V;
+      this.videoId = id;
 
-      const cssClass = TooltipClass.displayBottom;
-      const bottom = { top: 'unset', left: 'unset', cssClass };
+      const cssClass = TooltipClass.displayTop;
+      const top = { top: 'unset', left: 'unset', cssClass };
       const normal = { top: px(y + 20), left: px(x + 20) };
 
       if (video.content) {
-        tooltip.innerText = video?.content ?? '';
-        window.innerWidth > 500
+        const paragraph = tooltip.querySelector('p');
+        if (paragraph) paragraph.innerText = video?.content ?? '';
+        window.innerWidth > 800
           ? this.styleTooltip(tooltip, normal)
-          : this.styleTooltip(tooltip, bottom);
+          : this.styleTooltip(tooltip, top);
       }
     };
+  }
+
+  private getCardClickEvent() {
+    return (e: HTMLElement) => {
+      const id = e.id.split('_')[1];
+      if (window.innerWidth > 800) {
+        this.router.navigate([`/webdoc/${this.sdgId}`], {
+          queryParams: { id: id },
+        });
+      }
+    };
+  }
+
+  public followLink() {
+    this.router.navigate([`/webdoc/${this.sdgId}`], {
+      queryParams: { id: this.videoId },
+    });
+  }
+
+  public closePopup() {
+    const tooltip = document.querySelector('#tooltip');
+    tooltip?.classList.add('is-display-none');
   }
 
   private drawTree(entrypointId: string) {
     try {
       this.generateTree(this.videos.get(entrypointId) as VideoNode, this.tree);
+      console.log(this.tree);
 
       treeMaker(this.tree, {
         id: 'tree',
+        card_click: this.getCardClickEvent(),
         treeParams: this.treeParams,
         link_width: '4px',
-        link_color: '#FFFFFF',
+        link_color: 'white',
       });
 
-      const tooltipSpan = document.querySelector('#tooltip') as HTMLElement;
-      if (tooltipSpan) {
+      const tooltip = document.querySelector('#tooltip') as HTMLElement;
+      if (tooltip) {
         document
           .querySelectorAll('.tree__container__step__card p')
-          .forEach((p) => {
-            p.addEventListener('mousemove', this.getShowTooltip(tooltipSpan));
-            p.addEventListener('mouseleave', this.getHideTooltip(tooltipSpan));
+          .forEach((p, i) => {
+            if (i != 0) {
+              p.addEventListener('mousemove', this.getShowTooltip(tooltip));
+              p.addEventListener('mouseleave', this.getHideTooltip(tooltip));
+            }
           });
       }
     } catch (error) {
@@ -163,12 +203,8 @@ export class TreeComponent implements AfterContentInit {
   private setStyles(id: string) {
     const isAlreadyWatched = this.watchedSequenceService.isWatched(id);
     return isAlreadyWatched
-      ? { background: 'red', opacity: '1', color: 'white' }
-      : {
-          background: '#9E9E9EA8',
-          opacity: '1',
-          color: 'white',
-        };
+      ? { background: 'var(--current-sdg-color)', color: 'white' }
+      : { background: '#9E9E9E', color: 'white' };
   }
 
   private generateTree(node: V, ref: Tree) {
@@ -177,14 +213,15 @@ export class TreeComponent implements AfterContentInit {
       styles: this.setStyles(node.id),
     };
     this.tree[node.id] = {};
-    this.generateNode(node, ref[node.id]);
+    this.generateNode(node, ref[node.id], 1);
   }
 
-  private generateNode(node: V, ref: Tree) {
+  private generateNode(node: V, ref: Tree, depth: number) {
     if (this.visitedVideoNodes.has(node.id)) {
       throw new Error(MSG.ERROR_INFINITE_TREE);
     }
 
+    let letter = 97;
     for (const interaction of node?.interactions ?? []) {
       const video = this.videos.get(interaction.id) as V;
       video.content = interaction.content;
@@ -192,10 +229,11 @@ export class TreeComponent implements AfterContentInit {
       ref[video.id] = {};
       const newRef = ref[video.id];
       this.treeParams[video.id] = {
-        trad: video.name.toUpperCase(),
+        trad: `${depth}${String.fromCharCode(letter)}`,
         styles: this.setStyles(interaction.id),
       };
-      this.generateNode(video, newRef);
+      letter++;
+      this.generateNode(video, newRef, depth + 1);
     }
   }
 }

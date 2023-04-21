@@ -5,6 +5,7 @@ import { Project } from '../../models/projects';
 import { Player as PlayerElement } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
+import { ActivatedRoute } from '@angular/router';
 
 type LocationData = {
   navigationId: number;
@@ -24,13 +25,15 @@ export class PlayerComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private location: Location,
-    private watchedSequenceService: WatchedSequenceService
+    private watchedSequenceService: WatchedSequenceService,
+    private route: ActivatedRoute
   ) {
     const project = this.location.getState() as LocationData;
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
-    this.setSdgColor(projectId)
+    this.setSdgColor(projectId);
+    console.log(document.location);
   }
 
   setSdgColor(id: string) {
@@ -46,6 +49,9 @@ export class PlayerComponent implements OnInit {
     } else {
       this.init();
     }
+    this.route.queryParamMap.subscribe((params) => {
+      console.log(params);
+    });
   }
 
   onSequenceStart(e: any) {

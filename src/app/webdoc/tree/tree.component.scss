@@ -1,30 +1,67 @@
 @import "../../../styles/mixins";
 
 .wrapper {
- @include layout-display(flex, column, unset, flex-start);
+  @include layout-display(flex, column, flex-start, center);
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  padding-top: 10rem;
+  overflow: hidden;
 }
 
 #tooltip {
-  @include font-paragraph--showcase(white, center);
+  @include font-question(#282828, center);
   @include layout-display(flex, row, center, center);
   position: fixed;
+  top: -100%;
   border-radius: var(--border-radius);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
   text-align: center;
   overflow: hidden;
-  background-color: red;
   padding: 1rem;
+  background: #f1f1f1;
+  width: 37.2rem;
+  display: flex;
+  flex-direction: column;
+  z-index:100;
 }
 
-.tooltip--bottom {
-  bottom: 0;
-  border-radius: 0 !important;
-  width: 100%;
-  height: 10%;
+#tooltip p {
+  padding: 0 2rem;
 }
 
+.close {
+  align-self: flex-end;
+  display: none;
+}
+
+.follow {
+  display: none;
+  padding-bottom:2rem;
+}
+
+.follow button {
+  @include layout-display(flex, row, center, center);
+  @include font-button(white, center);
+  box-sizing: border-box;
+  box-shadow: 6px 6px 4px rgba(11, 4, 21, 0.4);
+  width: 30rem;
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  padding: 0;
+  background: rgba(199, 193, 193, 0.75);
+}
+
+#tooltip.tooltip--top {
+  top: 0;
+  width: calc(100% - 5rem);
+}
+
+@media screen and (max-width: 800px) {
+  .close,
+  .follow {
+    display: flex;
+  }
+}
 
 .image-background {
   width: 100%;
@@ -33,6 +70,7 @@
   top: 0;
   left: 0;
   object-fit: cover;
+  z-index: -1;
 }
 
 .image-background-overlay {
@@ -41,7 +79,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #FF3A21;
+  background-color: #ff3a21;
   opacity: 0.1;
 }
 
@@ -49,26 +87,4 @@
   @include font-h1(white, center);
   margin: 20px;
   font-size: 2rem;
-}
-
-#finish-button {
-  all: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 3rem;
-  left: calc(50% - 10rem);
-  width: 20rem;
-  height: 5rem;
-  background-color: #9e9e9eac;
-  border-radius: 8px;
-  box-shadow: 6px 4px 6px 0px rgba(0, 0, 0, 0.6); 
-}
-
-#finish-button span {
-  @include font-style(white, center);
-  opacity: 1;
-  font-weight: 700;
-  text-transform: uppercase;
 }
