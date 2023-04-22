@@ -23,7 +23,7 @@
 }
 
 .navigation *[left] {
-  justify-content:flex-end;
+  justify-content:flex-start;
   grid-column: 1/2;
   pointer-events: auto;
 }
