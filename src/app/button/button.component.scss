@@ -70,7 +70,15 @@ a:hover {
 @media screen and (max-width: 800px) {
   .full-sm,
   .full {
-    width: 30rem;
+    width: 17.6rem;
+  }
+
+  a,
+  button,
+  .full,
+  .full-sm,
+  .square {
+    font-size: 1.4rem;
   }
 }
 
@@ -90,7 +98,6 @@ a:hover {
 // =====================================================================
 
 .square {
-  aspect-ratio: 1/1;
   border-radius: 0;
   box-shadow: none;
   border: none;

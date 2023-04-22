@@ -2,7 +2,7 @@
 
 .navigation.wrapper {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr auto 1fr;
   gap: var(--column-gap);
   position: absolute;
   width: calc(100% - 2 * var(--column-gap));
@@ -23,9 +23,13 @@
 }
 
 .navigation *[left] {
-  align-self: flex-start;
+  justify-content:flex-end;
   grid-column: 1/2;
   pointer-events: auto;
+}
+
+.navigation *[left] a {
+  justify-content:flex-start;
 }
 
 .navigation *[middle] {
@@ -35,12 +39,16 @@
 }
 
 .navigation *[right] {
-  align-self: flex-end;
   grid-column: 3/4;
   pointer-events: auto;
 }
 
-@media screen and (max-width: 500px) {
+.navigation *[right] a {
+  justify-content:flex-end;
+}
+
+
+@media screen and (max-width: 300px) {
   .navigation.wrapper {
     display: flex;
     flex-direction: column;

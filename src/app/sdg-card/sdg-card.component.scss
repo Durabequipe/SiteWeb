@@ -20,10 +20,11 @@
   padding: 1rem;
   overflow: hidden;
   justify-content: space-between;
+  outline: 8px solid transparent;
 }
 
 .card:hover {
-  border: 8px solid white;
+  outline: 8px solid white;
   box-shadow: none;
 }
 
@@ -42,11 +43,17 @@
 
 .sdg-number {
   display: none;
+  position:absolute;
+  bottom:0;
+  left:0;
   width: 100%;
   opacity: 0.75;
 }
 
 .icon-cone {
+  position: absolute;
+  bottom:0;
+  right:0;
   text-align: right;
   padding-right: 2rem;
   color: white;
@@ -81,17 +88,61 @@ h1 {
 
 @media screen and (max-width: 550px) {
   h1 {
-    font-size: 2.9rem;
-    line-height: 4rem;
+    font-size: 1.6rem;
+    line-height: 2rem;
   }
 
   .sdg-number {
     display: flex;
-    font-size: 14.4rem;
-    line-height: 15rem;
+    font-size: 6.4rem;
+    line-height: 6.6rem;
   }
 
   .icon-cone {
-    font-size: 7.5rem;
+    font-size: 3.3rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  h1 {
+    font-size: 1.7em;
+    line-height: 1.5em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .sdg-number {
+    display: flex;
+    font-size: 6.4rem;
+    line-height: 6.6rem;
+  }
+
+  .icon-cone {
+    font-size: 3.3rem;
+    right:unset;
+    left:3rem;
+    bottom: 7rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  h1 {
+    font-size: 2em;
+    line-height: 1.5em;
+    writing-mode: unset;
+    text-orientation: unset;
+  }
+
+  .sdg-number {
+    display: flex;
+    font-size: 6.4rem;
+    line-height: 6.6rem;
+  }
+
+  .icon-cone {
+    font-size: 3.3rem;
+    right:unset;
+    left:3rem;
+    bottom: 7rem;
   }
 }

@@ -69,11 +69,16 @@ input[type="radio"]:checked::before {
 input[type="radio"]:checked {
   outline: max(-4px, 0.2em) solid var(--current-sdg-color);
   outline-offset: max(-4px, 0.2em);
-  background-color:var(--current-sdg-color)
+  background-color: var(--current-sdg-color);
 }
 
 @media screen and (max-width: 800px) {
   .content {
     grid-template-rows: 1.5fr auto 1fr;
+  }
+
+  p {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
   }
 }

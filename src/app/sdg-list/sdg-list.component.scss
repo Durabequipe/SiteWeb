@@ -22,7 +22,7 @@ app-navigation {
   display: flex;
   gap: calc(2rem + var(--card-border-width) + var(--card-border-width));
   height: -webkit-fill-available;
-  padding: 0 5% 2rem 5%;
+  padding: 8px 5% 2rem 5%;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -57,7 +57,7 @@ app-navigation {
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 350px) {
   .cards {
     grid-template-columns: 1fr;
   }

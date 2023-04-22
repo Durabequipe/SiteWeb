@@ -55,6 +55,14 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+
+.tree__container__step__card p {
+    padding:5px;
+    font-size: 12px;
+  }
+}
+
 #tree__svg-container {
   z-index: -1;
   position: absolute;
