@@ -18,6 +18,15 @@
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.42);
 }
 
+@mixin font-li($color, $text-align) {
+  @include font-style($color, $text-align);
+  font-weight: 900;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
 @mixin font-mobile-sdg-number($color, $text-align) {
   @include font-style($color, $text-align);
   font-weight: 900;

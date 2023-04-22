@@ -1,0 +1,10 @@
+<div class="wrapper">
+ <ul>
+   <li *ngFor="let theme of themes;index as i">
+     <label >
+       <p>{{theme.name}}</p>
+       <input type="radio" name="theme" [value]="theme.videoId">
+     </label>
+   </li>
+ </ul>
+</div>

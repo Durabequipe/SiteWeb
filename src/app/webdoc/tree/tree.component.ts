@@ -81,6 +81,13 @@ export class TreeComponent implements AfterContentInit {
     }
   }
 
+  public togglePicker(){
+    const picker = document.querySelector('app-theme-picker')
+    if(picker){
+      picker.classList.toggle('is-display-none');
+    }
+  }
+
   async fetchProject(sdgId: string) {
     const projects = await this.api.getPlayers();
     const project = projects.filter((p) => {

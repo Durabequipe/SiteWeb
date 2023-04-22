@@ -22,7 +22,7 @@
   width: 37.2rem;
   display: flex;
   flex-direction: column;
-  z-index:100;
+  z-index: 100;
 }
 
 #tooltip p {
@@ -34,9 +34,20 @@
   display: none;
 }
 
+.theme__button {
+  @include font-header(white, right);
+  background:transparent;
+  border:none;
+  height:100%;
+}
+
+.theme__button:hover {
+  color: var(--secondary-color-hex);
+}
+
 .follow {
   display: none;
-  padding-bottom:2rem;
+  padding-bottom: 2rem;
 }
 
 .follow button {
@@ -88,3 +99,14 @@
   margin: 20px;
   font-size: 2rem;
 }
+
+.picker__wrapper {
+  position:absolute;
+  left:0;
+  right:0;
+  display:block;
+  box-sizing:border-box;
+  padding:1rem;
+  bottom: 15rem
+}
+

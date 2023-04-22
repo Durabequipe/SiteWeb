@@ -50,7 +50,7 @@ export class SingleVideoComponent implements OnInit {
     const player: PlayerElement | null =
       document.querySelector('shammas-player');
     if (player && project) {
-      player.initProject(project);
+      player.initProject(project,false);
     }
   }
 }

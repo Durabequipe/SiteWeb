@@ -23,7 +23,7 @@
 }
 
 .navigation *[left] {
-  align-self:flex-start;
+  align-self: flex-start;
   grid-column: 1/2;
   pointer-events: auto;
 }
@@ -31,14 +31,26 @@
 .navigation *[middle] {
   grid-column: 2/3;
   pointer-events: auto;
-  margin:auto;
+  margin: auto;
 }
 
 .navigation *[right] {
-  align-self:flex-end;
+  align-self: flex-end;
   grid-column: 3/4;
   pointer-events: auto;
 }
 
+@media screen and (max-width: 500px) {
+  .navigation.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .navigation *[left] {
+    align-self: unset;
+  }
 
-
+  .navigation *[right] {
+    align-self: unset;
+  }
+}

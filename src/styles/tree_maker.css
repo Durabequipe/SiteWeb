@@ -39,6 +39,22 @@
   border: 8px solid transparent;
 }
 
+@media screen and (max-width: 600px) {
+
+.tree__container__step__card p {
+    padding:20px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+.tree__container__step__card p {
+    padding:10px;
+    font-size: 16px;
+  }
+}
+
 #tree__svg-container {
   z-index: -1;
   position: absolute;

@@ -6,9 +6,10 @@ import { PlayerRoutingModule } from './player/player-routing.module';
 import { PlayerComponent } from './player/player.component';
 import { TreeComponent } from './tree/tree.component';
 import { PopupComponent } from './popup/popup.component';
+import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 @NgModule({
-  declarations: [PlayerComponent, TreeComponent, PopupComponent],
+  declarations: [PlayerComponent, TreeComponent, PopupComponent, ThemePickerComponent],
   imports: [
     CommonModule,
     PlayerRoutingModule,
