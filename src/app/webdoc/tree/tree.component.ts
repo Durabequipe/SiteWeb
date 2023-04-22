@@ -1,12 +1,13 @@
 import { Component, AfterContentInit } from '@angular/core';
 import treeMaker from '../../lib/tree';
 import { Tree, TreeParams } from '../../models/treemaker';
-import { VideoNode } from '@shammas44/interactive-video-player';
+import { VideoNode, Interaction } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
 import { ProjectService } from 'src/app/services/project.service';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 import { Router } from '@angular/router';
+import { videoToMap } from 'src/app/lib/utils';
 
 type LocationData = {
   navigationId: number;
@@ -15,6 +16,7 @@ type LocationData = {
 
 type V = VideoNode & {
   content?: string;
+  canChooseTheme: boolean;
 };
 
 enum TooltipClass {
@@ -50,6 +52,7 @@ export class TreeComponent implements AfterContentInit {
   private visitedVideoNodes = new Set();
   public videoId = '/';
   private sdgId = '';
+  public themes: Interaction[] | [] = [];
 
   constructor(
     private location: Location,
@@ -58,7 +61,6 @@ export class TreeComponent implements AfterContentInit {
     private router: Router
   ) {
     const data = this.location.getState() as LocationData;
-    console.log(data);
     this.project = data.project || null;
     this.sdgId = document.location.pathname.split('/')[2];
     this.setSdgColor(this.sdgId);
@@ -76,14 +78,22 @@ export class TreeComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     if (this.project) {
-      this.videos = this.videoToMap(this.project.videos);
+      this.videos = videoToMap(this.project.videos) as Map<string, V>;
       this.drawTree(this.project.entrypointId);
+      const videoContainingThemes = (this.project.videos as V[]).filter((video) => {
+        if (video.canChooseTheme) return video;
+        return;
+      });
+      const themes = videoContainingThemes.map((video) => {
+        return video?.interactions;
+      })[0];
+      this.themes = themes || [];
     }
   }
 
-  public togglePicker(){
-    const picker = document.querySelector('app-theme-picker')
-    if(picker){
+  public togglePicker() {
+    const picker = document.querySelector('app-theme-picker');
+    if (picker) {
       picker.classList.toggle('is-display-none');
     }
   }
@@ -100,13 +110,13 @@ export class TreeComponent implements AfterContentInit {
     }
   }
 
-  private videoToMap(videos: VideoNode[]): Map<string, VideoNode> {
-    const map = new Map();
-    videos.forEach((video) => {
-      map.set(video.id, video);
-    });
-    return map;
-  }
+  // private videoToMap(videos: VideoNode[]): Map<string, VideoNode> {
+  //   const map = new Map();
+  //   videos.forEach((video) => {
+  //     map.set(video.id, video);
+  //   });
+  //   return map;
+  // }
 
   private getHideTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
@@ -175,7 +185,7 @@ export class TreeComponent implements AfterContentInit {
 
   private drawTree(entrypointId: string) {
     try {
-      this.generateTree(this.videos.get(entrypointId) as VideoNode, this.tree);
+      this.generateTree(this.videos.get(entrypointId) as V, this.tree);
       console.log(this.tree);
 
       treeMaker(this.tree, {

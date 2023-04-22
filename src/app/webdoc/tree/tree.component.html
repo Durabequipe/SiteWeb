@@ -5,7 +5,7 @@
   <div id="tree"></div>
   <div id="tooltip">
     <div class="close">
-      <app-button (click)="closePopup()" type='square' color="#282828" img="cross"></app-button>
+      <span (click)="closePopup()" class="icon icon-cross"></span>
     </div>
     <p></p>
     <div class="follow">
@@ -15,7 +15,7 @@
 </div>
 
 <div class="picker__wrapper">
-  <app-theme-picker class="is-display-none"></app-theme-picker>
+  <app-theme-picker [initialThemeId]="0" class="is-display-none" [themes]="themes"></app-theme-picker>
 </div>
 
 
@@ -30,7 +30,7 @@
 
 <app-navigation position="bottom">
   <div middle>
-    <app-button link="/intro" type="full" img="arrowRight" text="terminer"></app-button>
+    <app-button link="/conclusion" type="full" img="arrowRight" text="terminer"></app-button>
   </div>
   <button (click)="togglePicker()" class="theme__button" right>thèmes</button>
 </app-navigation>

@@ -32,6 +32,7 @@
 .close {
   align-self: flex-end;
   display: none;
+  @include font-button(#282828, center);
 }
 
 .theme__button {

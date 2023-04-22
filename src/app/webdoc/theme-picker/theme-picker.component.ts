@@ -1,23 +1,22 @@
-import { Component } from '@angular/core';
-type Theme = {
-  name: string;
-  videoId: string;
-};
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { Interaction } from '@shammas44/interactive-video-player';
 
 @Component({
   selector: 'app-theme-picker',
   templateUrl: './theme-picker.component.html',
   styleUrls: ['./theme-picker.component.scss'],
 })
-export class ThemePickerComponent {
-  public themes:Theme[];
+export class ThemePickerComponent   {
+  @Input() themes: Interaction[] = [];
+  @Input() initialThemeIndex = 0;
+  @Output() choosenTheme = new EventEmitter<Interaction>();
 
-  constructor(){
-    this.themes = [
-      {name:'theme1',videoId:''},
-      {name:'theme2',videoId:''},
-      {name:'theme3',videoId:''},
-      {name:'theme4',videoId:''},
-    ]
+  public onChoosenTheme(interaction: Interaction) {
+    this.choosenTheme.emit(interaction);
   }
 }

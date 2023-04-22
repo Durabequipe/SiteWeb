@@ -2,14 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import '@shammas44/interactive-video-player';
 import { Project } from '../../models/projects';
-import { Player as PlayerElement } from '@shammas44/interactive-video-player';
+import {
+  Player as PlayerElement,
+  VideoNode,
+} from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 import { ActivatedRoute } from '@angular/router';
+import { videoToMap } from 'src/app/lib/utils';
 
 type LocationData = {
   navigationId: number;
   project: Project;
+};
+
+const MSG = {
+  ERROR_INFINITE_TREE:
+    'A video interaction is not allowed to point to a previous video.',
 };
 
 @Component({
@@ -32,8 +41,8 @@ export class PlayerComponent implements OnInit {
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
+    // this.getTheme(this.project.videos[this.project.videos.length - 1]);
     this.setSdgColor(projectId);
-    console.log(document.location);
   }
 
   setSdgColor(id: string) {
@@ -44,13 +53,12 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.project) {
-      this.setAndInitProject();
-    } else {
-      this.init();
-    }
     this.route.queryParamMap.subscribe((params) => {
-      console.log(params);
+      if (!this.project) {
+        this.setAndInitProject();
+      } else {
+        this.init();
+      }
     });
   }
 
@@ -60,14 +68,53 @@ export class PlayerComponent implements OnInit {
 
   onVideoEnd(e: any) {
     console.log(e);
+    // this.getTheme(e.detail)
     this.setPopup(true);
+  }
+
+  getTheme(video: VideoNode) {
+    if (this.project?.videos) {
+      const videos = videoToMap(this.project.videos);
+      const visitedVideoNodes = new Set();
+      let choosenTheme: string | undefined;
+      console.log(video);
+
+      // const visitNode = (node: V, isTheme = false, theme?: string) => {
+      //   if (visitedVideoNodes.has(node.id)) {
+      //     throw new Error(MSG.ERROR_INFINITE_TREE);
+      //   }
+      //   console.log(node);
+      //   if (isTheme) {
+      //     theme = node.content;
+      //     isTheme = false;
+      //   }
+
+      //   if (node.canChooseTheme) {
+      //     isTheme = true;
+      //   }
+
+      //   if (node.id == video?.id) {
+      //     choosenTheme = theme;
+      //   }
+
+      //   for (const interaction of node?.interactions ?? []) {
+      //     const video = videos.get(interaction.id) as V;
+      //     video.content = interaction.content;
+      //     videos.set(interaction.id, video);
+      //     visitNode(video, isTheme, theme);
+      //   }
+      // };
+      // visitNode(this.project.videos[0] as V);
+      console.log({ choosenTheme });
+      console.log(this.project.videos)
+    }
   }
 
   setPopup(value: boolean) {
     this.showPopup = value;
   }
 
-  async setAndInitProject() {
+  async setAndInitProject(entrypointId?: string) {
     const projects = await this.projectService.getPlayers();
     const project = projects.filter((project) => {
       if (project.description == this.projectId) return project;
@@ -77,11 +124,11 @@ export class PlayerComponent implements OnInit {
     this.init();
   }
 
-  async init() {
+  async init(entrypointId?: string) {
     const player: PlayerElement | null =
       document.querySelector('shammas-player');
     if (player != null) {
-      player.initProject(this.project as Project);
+      player.initProject(this.project as Project, false);
     }
   }
 }

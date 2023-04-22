@@ -66,7 +66,7 @@ input[type="radio"]:checked::before {
   transform: scale(1);
 }
 
-input[type="radio"]:focus {
+input[type="radio"]:checked {
   outline: max(-4px, 0.2em) solid var(--current-sdg-color);
   outline-offset: max(-4px, 0.2em);
   background-color:var(--current-sdg-color)
