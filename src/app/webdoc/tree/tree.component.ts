@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit, OnDestroy } from '@angular/core';
 import treeMaker from '../../lib/tree';
 import { Tree, TreeParams } from '../../models/treemaker';
 import { VideoNode, Interaction } from '@shammas44/interactive-video-player';
@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
 import { ProjectService } from 'src/app/services/project.service';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { videoToMap } from 'src/app/lib/utils';
 
 type LocationData = {
@@ -44,7 +44,7 @@ function px(x: number) {
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.scss'],
 })
-export class TreeComponent implements AfterContentInit {
+export class TreeComponent implements AfterContentInit, OnDestroy {
   public tree: Tree = {};
   public treeParams: TreeParams = {};
   public videos: Map<string, V> = new Map();
@@ -69,6 +69,10 @@ export class TreeComponent implements AfterContentInit {
     }
   }
 
+  ngOnDestroy() {
+    window.onresize = null;
+  }
+
   setSdgColor(id: string) {
     document.documentElement.style.setProperty(
       '--current-sdg-color',
@@ -80,10 +84,12 @@ export class TreeComponent implements AfterContentInit {
     if (this.project) {
       this.videos = videoToMap(this.project.videos) as Map<string, V>;
       this.drawTree(this.project.entrypointId);
-      const videoContainingThemes = (this.project.videos as V[]).filter((video) => {
-        if (video.canChooseTheme) return video;
-        return;
-      });
+      const videoContainingThemes = (this.project.videos as V[]).filter(
+        (video) => {
+          if (video.canChooseTheme) return video;
+          return;
+        }
+      );
       const themes = videoContainingThemes.map((video) => {
         return video?.interactions;
       })[0];
