@@ -1,13 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/projects';
+
+function onresize(event: any) {
+  const gradient = document.querySelector(
+    '.background.background--gradient'
+  ) as HTMLElement;
+  if (window.innerWidth > 800 && gradient) {
+    gradient.style.background = '';
+  }
+}
 
 @Component({
   selector: 'app-sdg-list',
   templateUrl: './sdg-list.component.html',
   styleUrls: ['./sdg-list.component.scss'],
 })
-export class SdgListComponent implements OnInit {
+export class SdgListComponent implements OnInit, OnDestroy {
   public backgroundImage = '';
   public currentProject: Project | null = null;
   public projects: Project[];
@@ -16,12 +25,22 @@ export class SdgListComponent implements OnInit {
 
   constructor(private api: ProjectService) {
     const projects = [] as Project[];
-    // just to avoid having nothing to display
-    // if page loading is really slow
-    /* for (let i = 1; i < 16; i++) {
-      projects.push({} as Project);
-    } */
     this.projects = projects;
+    window.onresize = onresize;
+  }
+
+  ngOnInit(): void {
+    this.fetchProject();
+    const cards = document.querySelector('.cards') as HTMLElement;
+    setTimeout(() => {
+      if (cards) {
+        cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;
+      }
+    }, 500);
+  }
+
+  ngOnDestroy() {
+    window.onresize = null;
   }
 
   async fetchProject() {
@@ -29,13 +48,8 @@ export class SdgListComponent implements OnInit {
     const newProjects = [];
     if (projects) {
       for (const project of projects) {
-        // just for developement time
-        // allow to have multiple project to show
-        //for (let i = 0; i < 8; i++) {
         newProjects.push(project);
         this.images.push(project.coverImage);
-        //}
-        // console.log({ project });
       }
       this.projects = newProjects;
       this.setDefaultProject(projects[0]);
@@ -89,15 +103,5 @@ export class SdgListComponent implements OnInit {
 
   setImage(image: string) {
     this.backgroundImage = `background-image:url('${image}'); background-size: cover; background-position: center; background-repeat: no-repeat;transition: all 0.4s ease-in-out 0s;`;
-  }
-
-  ngOnInit(): void {
-    this.fetchProject();
-    const cards = document.querySelector('.cards') as HTMLElement;
-    setTimeout(() => {
-      if (cards) {
-        cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;
-      }
-    }, 500);
   }
 }
