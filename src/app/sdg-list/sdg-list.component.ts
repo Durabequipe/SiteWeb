@@ -60,7 +60,7 @@ export class SdgListComponent implements OnInit {
             180deg,
             rgba(0, 0, 0, 0) 49.79%,
             rgba(0, 0, 0, 0.1797) 60.73%,
-            #0b0415 88.02%
+            black 88.02%
           ),
           url("${url}");
           `;

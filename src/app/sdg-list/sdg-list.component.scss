@@ -3,9 +3,10 @@
 .wrapper {
   @include layout-display(grid, column);
   height: 100%;
-  grid-template-rows: 60% 40%;
+  grid-template-rows: 60% auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  overflow: hidden;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
@@ -19,7 +20,8 @@ app-navigation {
 }
 
 .cards {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   gap: calc(2rem + var(--card-border-width) + var(--card-border-width));
   height: -webkit-fill-available;
   padding: 8px 5% 2rem 5%;
@@ -27,6 +29,13 @@ app-navigation {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   z-index: 5;
+  position: absolute;
+  bottom: 0;
+  height: --webkit-fill-available;
+  height: fit-content;
+  right: 0;
+  left: 0;
+  align-items: self-end;
 }
 
 @media screen and (max-width: 800px) {
@@ -50,16 +59,21 @@ app-navigation {
   }
 
   .cards {
-    display: grid;
+    display: flex;
+    height: fit-content;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 50vh;
-    overflow:hidden;
+    position: unset;
+    overflow: unset;
+    grid-auto-flow: unset;
     grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
   }
-}
 
-@media screen and (max-width: 350px) {
-  .cards {
-    grid-template-columns: 1fr;
+  body {
+    background-color: black;
   }
 }
 
@@ -69,14 +83,15 @@ app-navigation {
 
 .sdg-content {
   @include layout-display(flex, row, unset, center);
+  position: relative;
   z-index: 4;
-  max-width: 66%;
+  // max-width: 66%;
 }
 
 .sdg-number {
   $line-height: 58rem;
   @include font-sdgnumber(rgba(255, 255, 255, 0.6), unset);
-  @include layout-position(absolute, calc($line-height / 4), 0);
+  @include layout-position(relative, calc($line-height / 4), 0);
   @include layout-display(flex, row, unset, center);
   overflow: hidden;
   margin-left: auto;
@@ -90,7 +105,8 @@ app-navigation {
 h1 {
   @include font-h1(white, left);
   @include layout-display(flex, row, unset, center);
-  margin-left: 5%;
+  position: absolute;
+  margin: 0 25% 0 5%;
 }
 
 .background {
@@ -110,7 +126,7 @@ h1 {
     180deg,
     rgba(0, 0, 0, 0) 49.79%,
     rgba(0, 0, 0, 0.1797) 60.73%,
-    #0b0415 88.02%
+    black 88.02%
   );
 }
 

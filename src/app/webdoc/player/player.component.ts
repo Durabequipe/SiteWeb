@@ -2,24 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import '@shammas44/interactive-video-player';
 import { Project } from '../../models/projects';
-import {
-  Player as PlayerElement,
-  VideoNode,
-} from '@shammas44/interactive-video-player';
+import { Player as PlayerElement } from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 import { ActivatedRoute } from '@angular/router';
-import { videoToMap } from 'src/app/lib/utils';
-
-type LocationData = {
-  navigationId: number;
-  project: Project;
-};
-
-const MSG = {
-  ERROR_INFINITE_TREE:
-    'A video interaction is not allowed to point to a previous video.',
-};
+import { Video, LocationData } from '../../models/projects';
 
 @Component({
   selector: 'app-player',
@@ -30,6 +17,7 @@ export class PlayerComponent implements OnInit {
   public project: Project | null;
   private projectId: string;
   public showPopup = false;
+  public themeId = '';
 
   constructor(
     private projectService: ProjectService,
@@ -41,7 +29,6 @@ export class PlayerComponent implements OnInit {
     this.project = project.project;
     const projectId = document.location.pathname.split('/')[2];
     this.projectId = projectId;
-    // this.getTheme(this.project.videos[this.project.videos.length - 1]);
     this.setSdgColor(projectId);
   }
 
@@ -53,61 +40,24 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.subscribe((params: any) => {
       if (!this.project) {
-        this.setAndInitProject();
+        this.setAndInitProject(params.params.id);
       } else {
-        this.init();
+        this.init(params.params.id);
       }
     });
   }
 
   onSequenceStart(e: any) {
-    this.watchedSequenceService.addUniqueId(e.detail.id);
+    const detail = e.detail as Video;
+    this.setTheme(detail.themeVideoId);
+    this.watchedSequenceService.addUniqueId(detail.id);
   }
 
   onVideoEnd(e: any) {
     console.log(e);
-    // this.getTheme(e.detail)
     this.setPopup(true);
-  }
-
-  getTheme(video: VideoNode) {
-    if (this.project?.videos) {
-      const videos = videoToMap(this.project.videos);
-      const visitedVideoNodes = new Set();
-      let choosenTheme: string | undefined;
-      console.log(video);
-
-      // const visitNode = (node: V, isTheme = false, theme?: string) => {
-      //   if (visitedVideoNodes.has(node.id)) {
-      //     throw new Error(MSG.ERROR_INFINITE_TREE);
-      //   }
-      //   console.log(node);
-      //   if (isTheme) {
-      //     theme = node.content;
-      //     isTheme = false;
-      //   }
-
-      //   if (node.canChooseTheme) {
-      //     isTheme = true;
-      //   }
-
-      //   if (node.id == video?.id) {
-      //     choosenTheme = theme;
-      //   }
-
-      //   for (const interaction of node?.interactions ?? []) {
-      //     const video = videos.get(interaction.id) as V;
-      //     video.content = interaction.content;
-      //     videos.set(interaction.id, video);
-      //     visitNode(video, isTheme, theme);
-      //   }
-      // };
-      // visitNode(this.project.videos[0] as V);
-      console.log({ choosenTheme });
-      console.log(this.project.videos)
-    }
   }
 
   setPopup(value: boolean) {
@@ -121,14 +71,23 @@ export class PlayerComponent implements OnInit {
       else return;
     });
     this.project = project[0];
-    this.init();
+    this.init(entrypointId);
+  }
+
+  setTheme(themeId: string | null) {
+    if (themeId) {
+      this.themeId = themeId;
+    }
   }
 
   async init(entrypointId?: string) {
     const player: PlayerElement | null =
       document.querySelector('shammas-player');
     if (player != null) {
-      player.initProject(this.project as Project, false);
+      this.setTheme(entrypointId || null);
+      entrypointId
+        ? player.initProject(this.project as Project, false, entrypointId)
+        : player.initProject(this.project as Project, false);
     }
   }
 }

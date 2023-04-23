@@ -9,13 +9,13 @@
     </div>
     <p></p>
     <div class="follow">
-      <button (click)="followLink()">Découvrir</button>
+      <button (click)="followLink($event)">Découvrir</button>
     </div>
   </div>
 </div>
 
 <div class="picker__wrapper">
-  <app-theme-picker [initialThemeId]="0" class="is-display-none" [themes]="themes"></app-theme-picker>
+  <app-theme-picker (choosenTheme)="onChoosenTheme($event)" [initialThemeId]="initialThemeIndex" class="is-display-none" [themes]="themes"></app-theme-picker>
 </div>
 
 

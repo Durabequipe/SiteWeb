@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class PopupComponent {
   @Input() show = false;
+  @Input() themeId = '';
 
 }

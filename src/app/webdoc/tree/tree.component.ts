@@ -6,29 +6,10 @@ import { Location } from '@angular/common';
 import { Project } from '../../models/projects';
 import { ProjectService } from 'src/app/services/project.service';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { videoToMap } from 'src/app/lib/utils';
-
-type LocationData = {
-  navigationId: number;
-  project: Project;
-};
-
-type V = VideoNode & {
-  content?: string;
-  canChooseTheme: boolean;
-};
-
-enum TooltipClass {
-  displayNone = 'is-display-none',
-  displayTop = 'tooltip--top',
-}
-
-type ToolTipStyle = {
-  top: string;
-  left: string;
-  cssClass?: TooltipClass;
-};
+import { ToolTipStyle, TooltipClass } from 'src/app/models/tree';
+import { Video, LocationData } from 'src/app/models/projects';
 
 const MSG = {
   ERROR_INFINITE_TREE:
@@ -47,18 +28,20 @@ function px(x: number) {
 export class TreeComponent implements AfterContentInit, OnDestroy {
   public tree: Tree = {};
   public treeParams: TreeParams = {};
-  public videos: Map<string, V> = new Map();
+  public videos: Map<string, Video> = new Map();
   public project: Project | null = null;
   private visitedVideoNodes = new Set();
   public videoId = '/';
   private sdgId = '';
   public themes: Interaction[] | [] = [];
+  public initialThemeIndex = 0;
 
   constructor(
     private location: Location,
     private api: ProjectService,
     private watchedSequenceService: WatchedSequenceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     const data = this.location.getState() as LocationData;
     this.project = data.project || null;
@@ -81,10 +64,23 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit() {
+    this.route.queryParamMap.subscribe((params: any) => {
+      if (this.project) {
+        this.videos = videoToMap(this.project.videos) as Map<string, Video>;
+        this.setAvailableThemes();
+
+        const themeId = params.params.id || this.themes[0].id;
+        this.themes.forEach((theme, i) => {
+          if (theme.id == themeId) this.initialThemeIndex = i;
+        });
+        this.drawTree(themeId);
+      }
+    });
+  }
+
+  setAvailableThemes() {
     if (this.project) {
-      this.videos = videoToMap(this.project.videos) as Map<string, V>;
-      this.drawTree(this.project.entrypointId);
-      const videoContainingThemes = (this.project.videos as V[]).filter(
+      const videoContainingThemes = (this.project.videos as Video[]).filter(
         (video) => {
           if (video.canChooseTheme) return video;
           return;
@@ -97,7 +93,7 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  public togglePicker() {
+  togglePicker() {
     const picker = document.querySelector('app-theme-picker');
     if (picker) {
       picker.classList.toggle('is-display-none');
@@ -116,13 +112,9 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  // private videoToMap(videos: VideoNode[]): Map<string, VideoNode> {
-  //   const map = new Map();
-  //   videos.forEach((video) => {
-  //     map.set(video.id, video);
-  //   });
-  //   return map;
-  // }
+  onChoosenTheme(theme: Interaction) {
+    this.drawTree(theme.id);
+  }
 
   private getHideTooltip(tooltip: HTMLElement) {
     return (e: Event) => {
@@ -131,6 +123,8 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
         const [top, left] = [px(event.clientY + 20), px(event.clientX + 20)];
         const css = { top, left, cssClass: TooltipClass.displayNone };
         this.styleTooltip(tooltip, css);
+        const button = tooltip.querySelector('button');
+        if (button) button.setAttribute('disabled', 'true');
       }
     };
   }
@@ -150,12 +144,14 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
       tooltip?.classList.remove('is-display-none');
       const [x, y] = [event.clientX, event.clientY];
       const id = (e.target as HTMLElement).id.split('_')[1];
-      const video = this.videos.get(id) as V;
+      const video = this.videos.get(id) as Video;
       this.videoId = id;
 
       const cssClass = TooltipClass.displayTop;
       const top = { top: 'unset', left: 'unset', cssClass };
       const normal = { top: px(y + 20), left: px(x + 20) };
+      const button = tooltip.querySelector('button');
+      if (button) button.setAttribute('disabled', 'false');
 
       if (video.content) {
         const paragraph = tooltip.querySelector('p');
@@ -178,21 +174,22 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     };
   }
 
-  public followLink() {
+  followLink(e: any) {
+    console.log(e);
     this.router.navigate([`/webdoc/${this.sdgId}`], {
       queryParams: { id: this.videoId },
     });
   }
 
-  public closePopup() {
+  closePopup() {
     const tooltip = document.querySelector('#tooltip');
     tooltip?.classList.add('is-display-none');
   }
 
   private drawTree(entrypointId: string) {
     try {
-      this.generateTree(this.videos.get(entrypointId) as V, this.tree);
-      console.log(this.tree);
+      this.tree = {};
+      this.generateTree(this.videos.get(entrypointId) as Video, this.tree);
 
       treeMaker(this.tree, {
         id: 'tree',
@@ -230,7 +227,7 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
       : { background: '#9E9E9E', color: 'white' };
   }
 
-  private generateTree(node: V, ref: Tree) {
+  private generateTree(node: Video, ref: Tree) {
     this.treeParams[node.id] = {
       trad: node.name,
       styles: this.setStyles(node.id),
@@ -239,14 +236,14 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     this.generateNode(node, ref[node.id], 1);
   }
 
-  private generateNode(node: V, ref: Tree, depth: number) {
+  private generateNode(node: Video, ref: Tree, depth: number) {
     if (this.visitedVideoNodes.has(node.id)) {
       throw new Error(MSG.ERROR_INFINITE_TREE);
     }
 
     let letter = 97;
     for (const interaction of node?.interactions ?? []) {
-      const video = this.videos.get(interaction.id) as V;
+      const video = this.videos.get(interaction.id) as Video;
       video.content = interaction.content;
       this.videos.set(interaction.id, video);
       ref[video.id] = {};

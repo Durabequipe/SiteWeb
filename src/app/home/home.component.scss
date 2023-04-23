@@ -84,6 +84,12 @@ video {
   padding: 0 5%;
 }
 
+@media screen and (min-width: 1500px) {
+  .content__wrapper {
+    padding: 0 20%;
+  }
+}
+
 .buttons {
   max-width:45rem;
 }
@@ -92,7 +98,6 @@ p {
   @include layout-display(flex, row, unset, center);
   @include font-paragraph--showcase(white, center);
   margin: 2rem 0 4rem 0;
-  max-width: 110ch;
 }
 
 h1 {

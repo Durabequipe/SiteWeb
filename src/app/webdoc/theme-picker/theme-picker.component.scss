@@ -31,23 +31,18 @@ p {
 }
 
 input[type="radio"] {
-  /* Add if not using autoprefixer */
   -webkit-appearance: none;
-  /* Remove most all native input styles */
   appearance: none;
-  /* For iOS < 15 */
   background-color: unset;
-  /* Not removed via appearance */
   margin: 0;
-
+  display:flex;
   font: inherit;
   color: var(--current-sdg-color);
+  font-size:1rem;
   width: 1.5em;
   height: 1.5em;
   border: 0.15em solid var(--current-sdg-color);
   border-radius: 50%;
-  transform: translateY(-0.075em);
-  place-content: center;
 }
 
 input[type="radio"]::before {
@@ -57,13 +52,6 @@ input[type="radio"]::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  // box-shadow: inset 1em 1em var(--form-control-color);
-  /* Windows High Contrast Mode */
-  background-color: CanvasText;
-}
-
-input[type="radio"]:checked::before {
-  transform: scale(1);
 }
 
 input[type="radio"]:checked {
