@@ -60,7 +60,7 @@ a:hover {
   width: 45rem;
   border: 2px solid white;
   border-radius: var(--border-radius);
-  padding: 0.25em 0;
+  padding: 0.25em;
   background: rgba(199, 193, 193, 0.75);
 }
 
@@ -71,7 +71,7 @@ a:hover {
 @media screen and (max-width: 800px) {
   .full-sm,
   .full {
-    width: 17.6rem;
+    width: 18.6rem;
   }
 
   a,
