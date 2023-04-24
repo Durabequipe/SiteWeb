@@ -3,7 +3,6 @@ import '@shammas44/interactive-video-player';
 import {
   Player as PlayerElement,
   Project,
-  InteractionPosition,
 } from '@shammas44/interactive-video-player';
 import { Router } from '@angular/router';
 
@@ -37,11 +36,6 @@ export class SingleVideoComponent implements OnInit {
             id: '1',
             name: '',
             paths: [this.videoPaths.desktop, this.videoPaths.mobile],
-            animation: {
-              duration: 0,
-              position: InteractionPosition.BOTTOM,
-              title: '',
-            },
           },
         ],
       };

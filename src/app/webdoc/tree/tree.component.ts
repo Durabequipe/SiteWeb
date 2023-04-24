@@ -148,8 +148,11 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
       this.videoId = id;
 
       const cssClass = TooltipClass.displayTop;
+      const windowHalfSize = window.innerWidth / 2
+      const bonusSpace = event.clientX > windowHalfSize? 392: 0;
+
       const top = { top: 'unset', left: 'unset', cssClass };
-      const normal = { top: px(y + 20), left: px(x + 20) };
+      const normal = { top: px(y + 20), left: px(x + 20 - bonusSpace) };
       const button = tooltip.querySelector('button');
       if (button) button.setAttribute('disabled', 'false');
 
