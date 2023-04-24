@@ -85,10 +85,10 @@ export class PlayerComponent implements OnInit {
       document.querySelector('shammas-player');
     if (player != null) {
       this.setTheme(entrypointId || null);
-      console.log(this.project)
-      entrypointId
-        ? player.initProject(this.project as Project, false, entrypointId)
-        : player.initProject(this.project as Project, false);
+      console.log(this.project);
+      const isMobile = window.innerWidth < 768;
+      console.log({ isMobile });
+      player.initProject(this.project as Project, isMobile, entrypointId);
     }
   }
 }
