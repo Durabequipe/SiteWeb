@@ -40,8 +40,10 @@ export class SdgListComponent implements OnInit, OnDestroy {
 
     if (cards) {
       cards.addEventListener('wheel', (event) => {
-        event.preventDefault();
-        cards.scrollLeft += event.deltaY;
+        if (window.innerWidth > 800) {
+          event.preventDefault();
+          cards.scrollLeft += event.deltaY;
+        }
       });
     }
   }
