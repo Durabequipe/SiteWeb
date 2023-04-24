@@ -37,6 +37,13 @@ export class SdgListComponent implements OnInit, OnDestroy {
         cards.scrollLeft = (cards.scrollWidth - cards.clientWidth) / 2;
       }
     }, 500);
+
+    if (cards) {
+      cards.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        cards.scrollLeft += event.deltaY;
+      });
+    }
   }
 
   ngOnDestroy() {
