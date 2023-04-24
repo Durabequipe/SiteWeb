@@ -56,7 +56,6 @@ export class PlayerComponent implements OnInit {
   }
 
   onVideoEnd(e: any) {
-    console.log(e);
     this.setPopup(true);
   }
 
