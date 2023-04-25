@@ -7,7 +7,7 @@
   aspect-ratio: 1 / 1.5;
   box-shadow: 6px 6px 4px rgba(55, 0, 146, 0.6);
   border-radius: var(--border-radius);
-  height: 35vh;
+  height: 40vh;
   min-width: 15rem;
   overflow:hidden;
   transition: 0.3s;
@@ -151,6 +151,15 @@ h1 {
     right: unset;
     left: 3rem;
     bottom: 7rem;
+  }
+
+}
+@media screen and (max-height: 900px) {
+  h1 {
+    font-size: 1.8em;
+    line-height: 1.35em;
+    writing-mode: unset;
+    text-orientation: unset;
   }
 
 }
