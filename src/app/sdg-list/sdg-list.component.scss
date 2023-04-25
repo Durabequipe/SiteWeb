@@ -15,10 +15,6 @@
   );
 }
 
-app-navigation {
-  display: none;
-}
-
 .cards {
   display: grid;
   grid-auto-flow: column;
@@ -132,4 +128,21 @@ h1 {
 
 .button__intro {
   padding: 0 0 0 5%;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 4px;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.burger span {
+  border: 2px solid white;
+  width: 2rem;
+}
+
+.burger:hover span {
+  border: 2px solid var(--secondary-color-hex);
 }
