@@ -50,6 +50,9 @@
   #popup__wrapper a {
     border-bottom: 5px solid white;
   }
+  #popup__wrapper a:last-child {
+    border-bottom: none;
+  }
 
   .buttons {
     flex-direction: column;
