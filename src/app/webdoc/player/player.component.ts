@@ -55,7 +55,6 @@ export class PlayerComponent implements OnInit {
   onSequenceStart(e: any) {
     const detail = e.detail as Video;
     this.setTheme(detail.themeVideoId);
-    console.log(detail);
     this.watchedSequenceService.addUniqueId(detail.id);
   }
 

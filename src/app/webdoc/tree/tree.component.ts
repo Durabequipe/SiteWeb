@@ -69,10 +69,12 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
         this.videos = videoToMap(this.project.videos) as Map<string, Video>;
         this.setAvailableThemes();
 
+        console.log(params.params.id)
         const themeId = params.params.id || this.themes[0].id;
         this.themes.forEach((theme, i) => {
           if (theme.id == themeId) this.initialThemeIndex = i;
         });
+
         this.drawTree(themeId);
       }
     });
@@ -86,6 +88,7 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
           return;
         }
       );
+      console.log(videoContainingThemes)
       const themes = videoContainingThemes.map((video) => {
         return video?.interactions;
       })[0];
