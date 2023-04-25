@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import '@shammas44/interactive-video-player';
 import { Project } from '../../models/projects';
-import { Player as PlayerElement, PlayerEvents } from '@shammas44/interactive-video-player';
+import {
+  Player as PlayerElement,
+  PlayerEvents,
+} from '@shammas44/interactive-video-player';
 import { Location } from '@angular/common';
 import { WatchedSequenceService } from 'src/app/services/watched-video.service';
 import { ActivatedRoute } from '@angular/router';
@@ -52,13 +55,13 @@ export class PlayerComponent implements OnInit {
   onSequenceStart(e: any) {
     const detail = e.detail as Video;
     this.setTheme(detail.themeVideoId);
-    console.log(this.themeId)
-    console.log(detail)
+    console.log(this.themeId);
+    console.log(detail);
     this.watchedSequenceService.addUniqueId(detail.id);
   }
 
   onVideoEnd(e: any) {
-    console.log(e,'end')
+    console.log(e, 'end');
     this.setPopup(true);
   }
 
@@ -89,6 +92,7 @@ export class PlayerComponent implements OnInit {
       this.setTheme(entrypointId || null);
       const isMobile = window.innerWidth < 768;
       player.initProject(this.project as Project, isMobile, entrypointId);
+      player.togglePlay();
     }
   }
 }

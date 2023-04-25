@@ -45,6 +45,7 @@ export class SingleVideoComponent implements OnInit {
       document.querySelector('shammas-player');
     if (player && project) {
       player.initProject(project,false);
+      player.togglePlay()
     }
   }
 }
