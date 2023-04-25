@@ -8,7 +8,6 @@ export class WatchedSequenceService {
 
   constructor() {
     this.watchedIds = JSON.parse(localStorage.getItem('watchedIds') ?? '[]');
-    console.log('watched ids', this.watchedIds);
   }
 
   addId(id: string): WatchedSequenceService {
