@@ -114,6 +114,12 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
 
   onChoosenTheme(theme: Interaction) {
     this.drawTree(theme.id);
+    const firstP = document.querySelector(
+      '.tree__container__step__card__p:first-child'
+    ) as HTMLParagraphElement;
+    if (firstP) {
+      firstP.innerText = theme.content
+    }
   }
 
   private getHideTooltip(tooltip: HTMLElement) {
@@ -148,8 +154,8 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
       this.videoId = id;
 
       const cssClass = TooltipClass.displayTop;
-      const windowHalfSize = window.innerWidth / 2
-      const bonusSpace = event.clientX > windowHalfSize? 392: 0;
+      const windowHalfSize = window.innerWidth / 2;
+      const bonusSpace = event.clientX > windowHalfSize ? 392 : 0;
 
       const top = { top: 'unset', left: 'unset', cssClass };
       const normal = { top: px(y + 20), left: px(x + 20 - bonusSpace) };
@@ -232,7 +238,7 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
 
   private generateTree(node: Video, ref: Tree) {
     this.treeParams[node.id] = {
-      trad: node.name,
+      trad: this.themes[this.initialThemeIndex].content,
       styles: this.setStyles(node.id),
     };
     this.tree[node.id] = {};

@@ -20,7 +20,6 @@ export class HomeComponent {
       () => {
         const video = document.querySelector('video');
         video?.play()
-        console.log(video);
       },
       { once: true }
     );
