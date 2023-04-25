@@ -55,13 +55,11 @@ export class PlayerComponent implements OnInit {
   onSequenceStart(e: any) {
     const detail = e.detail as Video;
     this.setTheme(detail.themeVideoId);
-    console.log(this.themeId);
     console.log(detail);
     this.watchedSequenceService.addUniqueId(detail.id);
   }
 
   onVideoEnd(e: any) {
-    console.log(e, 'end');
     this.setPopup(true);
   }
 

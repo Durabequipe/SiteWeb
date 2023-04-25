@@ -23,13 +23,16 @@
 }
 
 .navigation *[left] {
-  justify-content:flex-start;
+  justify-content: flex-start;
   grid-column: 1/2;
   pointer-events: auto;
+  width: fit-content;
+  display: flex;
+  margin-right: auto;
 }
 
 .navigation *[left] a {
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
 .navigation *[middle] {
@@ -41,12 +44,14 @@
 .navigation *[right] {
   grid-column: 3/4;
   pointer-events: auto;
+  width: fit-content;
+  display: flex;
+  margin-left: auto;
 }
 
 .navigation *[right] a {
-  justify-content:flex-end;
+  justify-content: flex-end;
 }
-
 
 @media screen and (max-width: 300px) {
   .navigation.wrapper {

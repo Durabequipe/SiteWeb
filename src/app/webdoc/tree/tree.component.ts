@@ -184,7 +184,6 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
   }
 
   followLink(e: any) {
-    console.log(e);
     this.router.navigate([`/webdoc/${this.sdgId}`], {
       queryParams: { id: this.videoId },
     });
