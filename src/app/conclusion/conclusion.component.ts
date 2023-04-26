@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-conclusion',
   templateUrl: './conclusion.component.html',
-  styleUrls: ['./conclusion.component.scss']
+  styleUrls: ['./conclusion.component.scss'],
 })
 export class ConclusionComponent {
-public videoPaths = {
-    desktop: 'https://admin.durabilia.tarrit.ch/storage/videos/standalones/desktop/conclusion.mp4',
-    mobile: 'https://admin.durabilia.tarrit.ch/storage/videos/standalones/mobile/conclusion.mp4',
-  }
+  public videoPaths = {
+    desktop:
+      environment.baseUrl +
+      '/storage/videos/standalones/desktop/conclusion.mp4',
+    mobile:
+      environment.baseUrl + '/storage/videos/standalones/mobile/conclusion.mp4',
+  };
 }

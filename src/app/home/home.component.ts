@@ -5,6 +5,7 @@ import {
   Player as PlayerElement,
   Project,
 } from '@shammas44/interactive-video-player';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-intro',
@@ -13,13 +14,13 @@ import {
 })
 export class HomeComponent {
   public videoPath =
-    'https://admin.durabilia.tarrit.ch/storage/videos/standalones/desktop/home.mp4';
+    environment.baseUrl + '/storage/videos/standalones/desktop/home.mp4';
   constructor(private projectService: ProjectService) {
     document.body.addEventListener(
       'click',
       () => {
         const video = document.querySelector('video');
-        video?.play()
+        video?.play();
       },
       { once: true }
     );
